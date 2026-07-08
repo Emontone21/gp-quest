@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GP Quest 2026 — Estudiá Gestión de Proyectos</title>
+<style>
+:root{
+  --bg:#0d1424; --bg2:#131c33; --card:#1a2545; --card2:#212e54;
+  --line:#2c3a63; --acc:#f5b642; --acc2:#ffcf6b;
+  --teal:#38c6b4; --pur:#8b7cf6; --pink:#f472b6;
+  --txt:#e9edf8; --mut:#93a0c2; --good:#4ade80; --bad:#f87171;
+  --shadow:0 18px 45px -18px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  background:radial-gradient(1200px 700px at 80% -10%,#1c2a4d 0%,transparent 55%),
+             radial-gradient(1000px 600px at -10% 110%,#22314f 0%,transparent 50%),
+             var(--bg);
+  color:var(--txt); line-height:1.55; min-height:100vh;
+}
+a{color:var(--teal)}
+.wrap{max-width:1080px;margin:0 auto;padding:22px 18px 90px}
+/* Header */
+header.top{position:sticky;top:0;z-index:40;backdrop-filter:blur(9px);
+  background:rgba(13,20,36,.82);border-bottom:1px solid var(--line)}
+.top-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:14px;
+  padding:11px 18px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:1.15rem;letter-spacing:.3px;display:flex;align-items:center;gap:9px}
+.logo .b{background:linear-gradient(135deg,var(--acc),var(--pink));-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+.spacer{flex:1}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.nav button{background:transparent;border:1px solid transparent;color:var(--mut);
+  padding:8px 13px;border-radius:10px;cursor:pointer;font-size:.92rem;font-weight:600;transition:.15s}
+.nav button:hover{color:var(--txt);background:var(--card)}
+.nav button.active{color:#10182b;background:linear-gradient(135deg,var(--acc),var(--acc2));border-color:transparent}
+.xp{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--mut);
+  background:var(--card);border:1px solid var(--line);padding:6px 11px;border-radius:20px;white-space:nowrap}
+.xp b{color:var(--acc)}
+/* Sections */
+section{display:none;animation:fade .35s ease}
+section.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{background:linear-gradient(135deg,#1b2748,#141d36);border:1px solid var(--line);
+  border-radius:20px;padding:30px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;
+  background:radial-gradient(circle,rgba(245,182,66,.22),transparent 70%)}
+.hero h1{font-size:1.9rem;line-height:1.2;margin-bottom:8px}
+.hero p{color:var(--mut);max-width:640px}
+.pill{display:inline-block;background:var(--card2);border:1px solid var(--line);color:var(--teal);
+  padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700;margin-bottom:14px;letter-spacing:.4px}
+.progress-wrap{margin-top:22px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.bar{height:12px;background:#0b1220;border-radius:20px;overflow:hidden;margin-top:8px;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;border-radius:20px;
+  background:linear-gradient(90deg,var(--teal),var(--acc));transition:width .6s ease}
+.stat-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
+.stat{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat .n{font-size:1.5rem;font-weight:800;color:var(--acc)}
+.stat .l{font-size:.82rem;color:var(--mut)}
+/* Units + module cards */
+.unit-title{margin:30px 0 12px;display:flex;align-items:center;gap:10px;font-size:1.1rem;font-weight:800}
+.unit-title .dot{width:11px;height:11px;border-radius:50%;background:var(--acc)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.mcard{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--line);
+  border-radius:16px;padding:18px;cursor:pointer;transition:.18s;position:relative;overflow:hidden}
+.mcard:hover{transform:translateY(-3px);border-color:var(--acc);box-shadow:var(--shadow)}
+.mcard .ic{font-size:1.7rem}
+.mcard h3{font-size:1.02rem;margin:9px 0 4px}
+.mcard p{font-size:.84rem;color:var(--mut)}
+.mcard .badge{position:absolute;top:12px;right:12px;font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:20px}
+.badge.done{background:rgba(74,222,128,.16);color:var(--good);border:1px solid rgba(74,222,128,.4)}
+.badge.todo{background:var(--card2);color:var(--mut);border:1px solid var(--line)}
+/* Ficha reader */
+.reader{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:0;overflow:hidden}
+.reader-head{padding:24px 28px;background:linear-gradient(135deg,#1d2a4e,#151f3a);border-bottom:1px solid var(--line)}
+.reader-head .ic{font-size:2.2rem}
+.reader-head h2{font-size:1.5rem;margin:6px 0 3px}
+.reader-head .sub{color:var(--mut);font-size:.9rem}
+.reader-body{padding:24px 28px}
+.reader-body h4{color:var(--acc2);margin:20px 0 8px;font-size:1.05rem;display:flex;gap:8px;align-items:center}
+.reader-body h4:first-child{margin-top:0}
+.reader-body ul{margin:6px 0 6px 4px;list-style:none}
+.reader-body li{position:relative;padding:3px 0 3px 22px;color:#d7deef}
+.reader-body li:before{content:"▸";position:absolute;left:2px;color:var(--teal)}
+.reader-body p{margin:8px 0;color:#d7deef}
+.reader-body .key{background:var(--card);border-left:3px solid var(--acc);border-radius:8px;
+  padding:12px 14px;margin:14px 0;font-size:.92rem}
+.reader-body table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.88rem}
+.reader-body th,.reader-body td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.reader-body th{background:var(--card2);color:var(--acc2)}
+.reader-body code{background:#0b1220;padding:2px 7px;border-radius:6px;color:var(--teal);font-size:.9em}
+.btn{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#10182b;border:none;
+  padding:11px 20px;border-radius:11px;font-weight:800;cursor:pointer;font-size:.95rem;transition:.15s}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+.btn.ghost:hover{border-color:var(--acc);background:var(--card)}
+.btn.teal{background:linear-gradient(135deg,var(--teal),#5fe0d0);color:#062a26}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.mt{margin-top:18px}.mt2{margin-top:28px}
+/* Quiz */
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-top:20px}
+.quiz h4{color:var(--acc2);margin-bottom:4px}
+.q{margin:18px 0;padding-top:16px;border-top:1px dashed var(--line)}
+.q:first-of-type{border-top:none;padding-top:0}
+.q .qt{font-weight:600;margin-bottom:10px}
+.q .qt .num{color:var(--acc);font-weight:800;margin-right:6px}
+.opt{display:block;background:var(--bg2);border:1px solid var(--line);border-radius:10px;
+  padding:11px 14px;margin:7px 0;cursor:pointer;transition:.13s;font-size:.93rem}
+.opt:hover{border-color:var(--teal)}
+.opt.sel{border-color:var(--acc);background:var(--card2)}
+.opt.correct{border-color:var(--good);background:rgba(74,222,128,.13)}
+.opt.wrong{border-color:var(--bad);background:rgba(248,113,113,.12)}
+.opt input{margin-right:9px;accent-color:var(--acc)}
+.q input[type=text],.q input[type=number],.q textarea{width:100%;background:var(--bg2);
+  border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--txt);font-size:.93rem;font-family:inherit}
+.q textarea{min-height:70px;resize:vertical}
+.expl{margin-top:10px;font-size:.88rem;padding:11px 14px;border-radius:10px;display:none}
+.expl.show{display:block}
+.expl.ok{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.35)}
+.expl.no{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.35)}
+.expl b{color:var(--acc2)}
+.result{margin-top:18px;padding:18px 20px;border-radius:14px;text-align:center;display:none}
+.result.show{display:block}
+.result .big{font-size:2rem;font-weight:800}
+/* EVM exercise */
+.evm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.evm-grid .cell label{font-size:.82rem;color:var(--mut);display:block;margin-bottom:3px}
+.evm-data{background:#0b1220;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0;font-size:.92rem}
+.evm-data b{color:var(--acc2)}
+.steps{background:#0b1220;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px;font-size:.9rem;display:none}
+.steps.show{display:block}
+.steps .st{margin:5px 0;padding-left:6px;border-left:2px solid var(--teal)}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:20px;
+  background:var(--card2);border:1px solid var(--line);color:var(--mut);margin-left:6px}
+.tag.evm{color:var(--pur);border-color:var(--pur)}
+.tag.vf{color:var(--teal)}
+.tag.mcq{color:var(--acc)}
+.tag.short{color:var(--pink)}
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--card2);border:1px solid var(--acc);color:var(--txt);padding:13px 22px;border-radius:14px;
+  box-shadow:var(--shadow);z-index:80;transition:.4s;font-weight:600}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.foot{text-align:center;color:var(--mut);font-size:.8rem;margin-top:40px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:6px 13px;font-size:.82rem;cursor:pointer}
+.chip.active{background:var(--acc);color:#10182b;border-color:var(--acc);font-weight:700}
+@media(max-width:560px){.hero h1{font-size:1.5rem}.evm-grid{grid-template-columns:1fr}.reader-body,.reader-head{padding-left:18px;padding-right:18px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="logo">🎯 <span>GP <span class="b">Quest</span> 2026</span></div>
+    <div class="spacer"></div>
+    <nav class="nav" id="nav">
+      <button data-s="home" class="active">Inicio</button>
+      <button data-s="study">Fichas</button>
+      <button data-s="exam">Simulacro</button>
+      <button data-s="evm">Valor Ganado</button>
+    </nav>
+    <div class="xp">⭐ <b id="xpVal">0</b> XP · <span id="lvlVal">Nivel 1</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- HOME -->
+  <section id="home" class="on">
+    <div class="hero">
+      <span class="pill">GESTIÓN DE PROYECTOS · UDE 2026</span>
+      <h1>Estudiá para el parcial jugando 🚀</h1>
+      <p>Repasá los <b>24 temas del curso</b> en fichas cortas con su mini-cuestionario, y después ponete a prueba con un <b>Simulacro de Parcial</b> corregido automáticamente — incluidos los ejercicios numéricos de <b>Valor Ganado</b>.</p>
+      <div class="progress-wrap">
+        <div class="row" style="justify-content:space-between">
+          <span style="font-weight:700">Tu progreso de estudio</span>
+          <span id="progPct" style="color:var(--acc);font-weight:800">0%</span>
+        </div>
+        <div class="bar"><i id="progBar"></i></div>
+        <div class="stat-row">
+          <div class="stat"><div class="n" id="stDone">0/24</div><div class="l">Fichas completadas</div></div>
+          <div class="stat"><div class="n" id="stExam">—</div><div class="l">Mejor simulacro</div></div>
+          <div class="stat"><div class="n" id="stXp">0</div><div class="l">XP acumulada</div></div>
+        </div>
+      </div>
+      <div class="row mt2">
+        <button class="btn" onclick="go('study')">📚 Empezar a estudiar</button>
+        <button class="btn teal" onclick="go('exam')">📝 Rendir un simulacro</button>
+        <button class="btn ghost" onclick="resetAll()">↺ Reiniciar progreso</button>
+      </div>
+    </div>
+    <div class="unit-title"><span class="dot"></span> ¿Cómo funciona?</div>
+    <div class="grid">
+      <div class="mcard" onclick="go('study')"><div class="ic">🃏</div><h3>Fichas de estudio</h3><p>Un resumen claro de cada PDF del curso + mini-quiz para confirmar que entendiste.</p></div>
+      <div class="mcard" onclick="go('exam')"><div class="ic">🧩</div><h3>Simulacro de parcial</h3><p>Preguntas al estilo de los parciales 2017–2025, mezcladas y corregidas al instante.</p></div>
+      <div class="mcard" onclick="go('evm')"><div class="ic">📈</div><h3>Práctica de Valor Ganado</h3><p>Ejercicios numéricos infinitos de EVM con corrección paso a paso.</p></div>
+    </div>
+  </section>
+
+  <!-- STUDY -->
+  <section id="study">
+    <div id="studyList"></div>
+    <div id="studyReader" style="display:none"></div>
+  </section>
+
+  <!-- EXAM -->
+  <section id="exam">
+    <div id="examIntro"></div>
+    <div id="examRun" style="display:none"></div>
+  </section>
+
+  <!-- EVM -->
+  <section id="evm">
+    <div id="evmBox"></div>
+  </section>
+
+  <div class="foot">GP Quest 2026 · Material de repaso basado en los apuntes del curso de Gestión de Proyectos (UDE). Uso educativo.</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   DATOS DE LOS MÓDULOS (FICHAS)
+   ============================================================ */
+const MODULES = [
+ /* ---------- UNIDAD 1: FUNDAMENTOS ---------- */
+ {id:"m1",unit:"1 · Fundamentos",ic:"🧭",title:"¿Qué es un Proyecto?",sub:"Definiciones PMI / ISO / IEEE",
+  body:`
+  <h4>💡 Idea central</h4>
+  <p>Un <b>proyecto</b> es un <b>esfuerzo temporal</b> (tiene inicio y fin definidos) que produce un <b>producto, servicio o resultado único</b>. No es una operación repetitiva (eso es un <i>proceso</i>).</p>
+  <h4>📖 Definiciones según estándares</h4>
+  <table><tr><th>Fuente</th><th>Énfasis</th><th>Definición breve</th></tr>
+  <tr><td>PMI</td><td>Resultados</td><td>Esfuerzo temporal para crear un producto/servicio/resultado único.</td></tr>
+  <tr><td>ISO 21500</td><td>Procesos</td><td>Conjunto único de procesos coordinados y controlados, con fechas de inicio y fin.</td></tr>
+  <tr><td>IEEE</td><td>Ingeniería</td><td>Esfuerzo organizado para lograr objetivos dentro de un presupuesto y plazo dados.</td></tr></table>
+  <h4>🧩 Elementos a considerar (def. del curso)</h4>
+  <ul><li><b>Operaciones:</b> duración, costo, interdependencia.</li>
+  <li><b>Métodos:</b> las formas de realizar las operaciones.</li>
+  <li><b>Recursos:</b> mano de obra, materiales, equipos, capital, tiempo.</li>
+  <li><b>Restricciones:</b> internas (presupuesto, normas IEEE, fecha de entrega) y externas.</li></ul>
+  <div class="key">📌 <b>Proyecto vs Proceso:</b> el proyecto es <b>temporal y único</b>; el proceso es <b>repetitivo y continuo</b>. Todo proyecto arranca por un <b>problema u oportunidad concreta</b> de una persona/grupo (el <b>usuario</b>).</div>`,
+  quiz:[
+   {t:"Según el PMI, un proyecto es ante todo...",o:["Un esfuerzo temporal que crea un resultado único","Una operación repetitiva y continua","Un conjunto de tareas sin fecha de fin","Un documento contractual"],a:0,e:"El PMI enfatiza la temporalidad y la unicidad del resultado."},
+   {t:"¿Cuál es la diferencia clave entre proyecto y proceso?",o:["El proyecto es temporal/único; el proceso es repetitivo/continuo","No hay diferencia","El proceso siempre es más caro","El proyecto no tiene objetivos"],a:0,e:"El proyecto tiene inicio y fin y produce algo único; el proceso es operación repetitiva."},
+   {t:"V/F: Todo proyecto comienza con un problema u oportunidad concreta de un usuario.",vf:true,e:"Verdadero. Todos los proyectos nacen de un problema/oportunidad de una persona o grupo (el usuario)."}
+  ]},
+
+ {id:"m2",unit:"1 · Fundamentos",ic:"🗂️",title:"Proyecto, Programa y Portafolio",
+  sub:"Dirección organizacional (PMI)",
+  body:`
+  <h4>🔺 Los tres niveles</h4>
+  <ul><li><b>Proyecto:</b> produce un <b>resultado específico</b> (un software, un puente).</li>
+  <li><b>Programa:</b> conjunto de <b>proyectos relacionados</b> gestionados de forma coordinada para lograr <b>beneficios/sinergias</b> que no se obtendrían por separado.</li>
+  <li><b>Portafolio:</b> conjunto de proyectos, programas y operaciones —<b>no necesariamente relacionados</b>— agrupados para cumplir <b>objetivos estratégicos</b>.</li></ul>
+  <h4>🏛️ Relación jerárquica y gobernanza</h4>
+  <table><tr><th>Nivel</th><th>Objetivo</th><th>Quién lo dirige</th></tr>
+  <tr><td>Proyecto</td><td>Entregar producto/servicio</td><td>Project Manager</td></tr>
+  <tr><td>Programa</td><td>Beneficios y sinergias</td><td>Program Manager</td></tr>
+  <tr><td>Portafolio</td><td>Maximizar valor estratégico</td><td>Alta dirección / PMO</td></tr></table>
+  <div class="key">📌 <code>Portafolio → Programas → Proyectos</code>: la estructura conecta la <b>estrategia</b> con la <b>ejecución</b>.</div>`,
+  quiz:[
+   {t:"Un conjunto de proyectos relacionados gestionados en coordinación es un...",o:["Programa","Portafolio","Proceso","Hito"],a:0,e:"El programa agrupa proyectos relacionados para lograr sinergias."},
+   {t:"El portafolio se caracteriza porque sus componentes...",o:["No necesariamente están relacionados; se agrupan por estrategia","Siempre son del mismo proyecto","No tienen dirección","Son procesos repetitivos"],a:0,e:"El portafolio agrupa iniciativas por objetivos estratégicos, aunque no estén relacionadas."},
+   {t:"¿Quién dirige típicamente un portafolio?",o:["Alta dirección / PMO","Un programador","El usuario final","El proveedor"],a:0,e:"El portafolio lo gestiona la alta dirección o la PMO."}
+  ]},
+
+ {id:"m3",unit:"1 · Fundamentos",ic:"🦴",title:"Anatomía de un Proyecto (Fases)",
+  sub:"Las fases del ciclo de vida",
+  body:`
+  <h4>📐 Fases del proyecto (metodología del curso)</h4>
+  <ol style="margin-left:18px">
+  <li><b>Definición</b> — se delimita el problema y se elabora la Propuesta.</li>
+  <li><b>Análisis</b> — comprensión cabal del proyecto; especificaciones funcionales.</li>
+  <li><b>Diseño</b> — cómo se construirá la solución.</li>
+  <li><b>Elaboración / Implementación</b> — construcción de unidades, testeo, documentación.</li>
+  <li><b>Testeo e Integración (Verificación)</b> — integración y prueba general.</li>
+  <li><b>Aceptación</b> — entrega oficial y conformidad del cliente.</li>
+  <li><b>Uso</b> — garantía + uso normal y mantenimiento.</li></ol>
+  <h4>🎯 Objetivos de gestión</h4>
+  <ul><li>Realizar el proyecto en tiempo y costo mínimos.</li>
+  <li>Estudiar soluciones alternativas y dar flexibilidad.</li>
+  <li>Establecer <b>puntos de control</b> (hitos).</li></ul>
+  <div class="key">📌 Cada fase tiene <b>actividades</b>, <b>documentación</b> y un <b>criterio de finalización</b> que habilita pasar a la siguiente.</div>`,
+  quiz:[
+   {t:"Ordená: ¿cuál fase va inmediatamente después de Definición?",o:["Análisis","Diseño","Aceptación","Uso"],a:0,e:"Definición → Análisis → Diseño → Elaboración → Testeo e Integración → Aceptación → Uso."},
+   {t:"Marcá las que SON fases vistas en el curso.",multi:true,o:["Definición","Sprint","Aceptación","Diseño"],a:[0,2,3],e:"Sprint pertenece a metodologías ágiles (Scrum), no a las fases de este curso."},
+   {t:"V/F: En la fase de Uso el proyecto incluye garantía y mantenimiento.",vf:true,e:"Verdadero: la fase de Uso comprende garantía + uso normal y mantenimiento."}
+  ]},
+
+ {id:"m4",unit:"1 · Fundamentos",ic:"⭐",title:"Factores Críticos de Éxito",
+  sub:"FCE y la Triple Restricción",
+  body:`
+  <h4>✅ ¿Cuándo un proyecto es exitoso?</h4>
+  <p>Cuando cumple el <b>alcance</b>, se entrega en <b>plazo</b>, respeta el <b>presupuesto</b>, cumple la <b>calidad</b> y <b>satisface a los interesados</b>.</p>
+  <h4>⭐ Los 3 Factores Críticos tradicionales</h4>
+  <ul><li><b>Alcance</b> — qué se va a hacer.</li>
+  <li><b>Plazo (Tiempo)</b> — cuándo debe estar.</li>
+  <li><b>Costo</b> — cuánto puede costar.</li></ul>
+  <p>Otros factores que también se gestionan: calidad, recursos humanos, riesgos y expectativas.</p>
+  <h4>🔺 La Triple Restricción</h4>
+  <p>Alcance, Tiempo y Costo están vinculados: <b>modificar uno impacta en los otros</b>.</p>
+  <div class="key">📌 Ejemplo: si <b>aumenta el alcance</b> → sube el costo y/o el plazo. Si <b>se reduce el plazo</b> → sube el costo y/o cae la calidad.</div>`,
+  quiz:[
+   {t:"Los 3 factores críticos de éxito tradicionales son:",o:["Alcance, Plazo y Costo","Calidad, Riesgo y Personas","Cliente, Proveedor y Equipo","Inicio, Medio y Fin"],a:0,e:"La triple restricción clásica: alcance, tiempo (plazo) y costo."},
+   {t:"Si en un proyecto se reduce el plazo, lo más probable es que...",o:["Aumente el costo y/o baje la calidad","No pase nada","Se reduzca el alcance automáticamente","Aumente la satisfacción del cliente"],a:0,e:"Por la triple restricción, comprimir el plazo suele subir costos o afectar la calidad."},
+   {t:"V/F: Modificar el alcance no afecta ni el tiempo ni el costo.",vf:false,e:"Falso. La triple restricción implica que tocar una variable impacta en las otras."}
+  ]},
+
+ {id:"m5",unit:"1 · Fundamentos",ic:"⚠️",title:"¿Por qué fracasan los proyectos?",
+  sub:"Fracasos al comienzo, transcurso y final",
+  body:`
+  <h4>💥 Tipos de fracaso</h4>
+  <ul><li><b>Al comienzo:</b> <b>no existe un plan</b>. (Por eso se dice que "un proyecto fracasa en el comienzo": cuando arranca sin planificación adecuada.)</li>
+  <li><b>En el transcurso:</b> desvíos de costos y plazos, "el que sabe decreta", problemas con los recursos humanos.</li>
+  <li><b>Al final:</b> "los proyectos alcanzan rápidamente el 90% y se quedan ahí para siempre".</li></ul>
+  <h4>🛡️ Consejos de la Dirección</h4>
+  <ul><li>No comenzar con un equipo inadecuado.</li>
+  <li>No hacer cambios durante el transcurso (impacto en costo y tiempo).</li>
+  <li>Mantener el control y subdividir proyectos grandes.</li></ul>
+  <h4>🏆 ¿Por qué terminan bien?</h4>
+  <p>Planificación adecuada, control constante, adecuación a plazos/costos, documentación apropiada, buena comunicación y mecanismos de aceptación.</p>
+  <div class="key">📌 <b>Involucrados</b> típicos: usuario, cliente, dirección del proyecto y equipo. Al cerrar se pregunta si todos quedaron conformes.</div>`,
+  quiz:[
+   {t:"¿Por qué se dice que un proyecto 'fracasa en el comienzo'?",o:["Porque arranca sin un plan / sin planificación","Porque el cliente no paga","Porque falta tecnología","Porque el equipo es grande"],a:0,e:"El fracaso al comienzo se da cuando no existe un plan adecuado."},
+   {t:"El fenómeno 'llega al 90% y se queda ahí para siempre' es un fracaso...",o:["Al final del proyecto","Al comienzo","Antes de empezar","En la propuesta"],a:0,e:"Es el fracaso al final: se estanca cerca de la terminación."},
+   {t:"V/F: Hacer cambios durante el transcurso no tiene impacto en costo ni tiempo.",vf:false,e:"Falso. Cambiar durante el proyecto impacta directamente en costo y tiempo."}
+  ]},
+
+ /* ---------- UNIDAD 2: FASE DE DEFINICIÓN ---------- */
+ {id:"m6",unit:"2 · Fase de Definición",ic:"📋",title:"Fase de Definición",
+  sub:"Documentos y actividades",
+  body:`
+  <h4>🎯 Objetivo</h4>
+  <p>Delimitar <b>el problema a resolver</b> y las <b>funcionalidades</b> del producto/servicio, y determinar la <b>viabilidad</b> del proyecto. Es la fase donde "nunca soñar" y donde se define todo lo que va a la <b>Licitación</b>.</p>
+  <h4>📑 Productos / documentos de la fase</h4>
+  <ul><li><b>Especificación de requerimientos.</b></li>
+  <li><b>Estudio de factibilidad / viabilidad.</b></li>
+  <li><b>EDT (estructura de desglose de trabajo).</b></li>
+  <li><b>Estimación</b> y <b>planificación</b> (plan del proyecto).</li>
+  <li><b>Análisis de riesgos.</b></li>
+  <li><b>La Propuesta</b> (documento final, técnico y comercial).</li></ul>
+  <div class="key">📌 Dos documentos de la fase requieren <b>aprobación del cliente/usuario</b>: la <b>especificación de requerimientos</b> y la <b>Propuesta</b>. El estudio de factibilidad, aunque suele hacerse aquí, conviene <b>extenderlo a todo el proyecto</b>.</div>`,
+  quiz:[
+   {t:"¿En qué documento se delimita el problema y las funcionalidades a entregar al cliente?",o:["La especificación de requerimientos","El acta de cierre","El diagrama de Gantt","La orden de compra"],a:0,e:"Los requerimientos delimitan el problema y las funciones del producto/servicio."},
+   {t:"Mencioná 4 productos de la fase de Definición (elegí los correctos).",multi:true,o:["Requerimientos","Propuesta","Test de aceptación","Estudio de factibilidad"],a:[0,1,3],e:"El Test de aceptación se diseña más adelante (Diseño) y se aplica en Aceptación."},
+   {t:"V/F: El estudio de factibilidad, aunque se hace en Definición, conviene extenderlo a todo el proyecto.",vf:true,e:"Verdadero: la viabilidad debería revisarse durante todo el proyecto."}
+  ]},
+
+ {id:"m7",unit:"2 · Fase de Definición",ic:"📝",title:"Análisis de Negocio y Requerimientos",
+  sub:"Elicitación, tipos y normalización",
+  body:`
+  <h4>🔍 Proceso de ingeniería de requisitos</h4>
+  <ol style="margin-left:18px"><li><b>Elicitación / determinación</b> — obtener los requisitos.</li>
+  <li><b>Análisis</b> de requisitos.</li>
+  <li><b>Especificación</b> (IEEE 830 / ISO 29148).</li>
+  <li><b>Verificación</b> y <b>validación</b>.</li></ol>
+  <p>Técnicas de elicitación: entrevista, encuesta, observación, casos de uso, escenarios, teatralización, prototipos.</p>
+  <h4>🧱 Tipos de requerimientos</h4>
+  <table><tr><th>Funcionales</th><th>No funcionales</th></tr>
+  <tr><td>Qué debe <b>hacer</b> el sistema (funciones, procesos, datos).</td><td>Cómo debe <b>ser</b>: desempeño, seguridad, fiabilidad, mantenibilidad, usabilidad, estándares.</td></tr></table>
+  <h4>🧹 Normalización de requerimientos</h4>
+  <p>Es <b>ordenar y estandarizar</b> los requerimientos para que sean claros, consistentes y sin ambigüedades ni duplicados. Importa porque evita malentendidos y errores costosos aguas abajo.</p>
+  <div class="key">📌 El rol que hace esto: <b>Analista de Negocio / Ingeniero de Requerimientos</b> (Business Analyst).</div>`,
+  quiz:[
+   {t:"Un requerimiento de 'tiempo de respuesta menor a 2 segundos' es...",o:["No funcional (desempeño)","Funcional","Un hito","Un riesgo"],a:0,e:"Desempeño/seguridad/fiabilidad son requerimientos no funcionales."},
+   {t:"¿Qué es la normalización de requerimientos?",short:true,keys:["ordenar","estandar","clar","consist","ambig","unific"],model:"Ordenar y estandarizar los requerimientos para que sean claros, consistentes y sin ambigüedades ni duplicados; es importante para evitar malentendidos y errores.",e:"Se busca uniformar y clarificar los requerimientos."},
+   {t:"La primera etapa del proceso de requisitos es...",o:["Elicitación (obtener los requisitos)","Validación","Especificación","Verificación"],a:0,e:"Primero se elicitan/obtienen, luego se analizan, especifican, verifican y validan."}
+  ]},
+
+ {id:"m8",unit:"2 · Fase de Definición",ic:"🔎",title:"Estudio de Factibilidad",
+  sub:"¿El proyecto es viable?",
+  body:`
+  <h4>🎯 Qué intenta determinar</h4>
+  <p>El <b>estudio de factibilidad (o viabilidad)</b> busca determinar si el proyecto es <b>realizable</b> y <b>conveniente</b> antes de comprometer recursos: si vale la pena hacerlo y si se puede hacer con los recursos disponibles.</p>
+  <h4>🧪 Dimensiones típicas</h4>
+  <ul><li><b>Técnica:</b> ¿existe la tecnología y capacidad para hacerlo?</li>
+  <li><b>Económica / financiera:</b> ¿conviene? ¿hay presupuesto?</li>
+  <li><b>Operativa:</b> ¿se podrá usar y mantener?</li>
+  <li><b>Legal y temporal:</b> ¿es legal? ¿entra en los plazos?</li></ul>
+  <div class="key">📌 Es una actividad <b>esencial para determinar la viabilidad</b>. Se hace en Definición pero es <b>aconsejable extenderla a todo el proyecto</b> porque las condiciones cambian.</div>`,
+  quiz:[
+   {t:"El estudio de factibilidad intenta determinar principalmente si el proyecto...",o:["Es viable y conveniente de realizar","Ya terminó","Tiene buen logo","No necesita cliente"],a:0,e:"Evalúa si el proyecto es realizable y conveniente antes de invertir recursos."},
+   {t:"V/F: La factibilidad conviene revisarla solo una vez al inicio.",vf:false,e:"Falso: aunque se hace en Definición, se aconseja extenderla a todo el proyecto."},
+   {t:"¿Cuál NO es una dimensión típica de factibilidad?",o:["Factibilidad decorativa","Factibilidad técnica","Factibilidad económica","Factibilidad operativa"],a:0,e:"Las dimensiones son técnica, económica, operativa, legal y temporal."}
+  ]},
+
+ {id:"m9",unit:"2 · Fase de Definición",ic:"🌲",title:"EDT / WBS",
+  sub:"Estructura de Desglose de Trabajo",
+  body:`
+  <h4>🌲 ¿Qué es la EDT?</h4>
+  <p>Es una <b>descomposición jerárquica orientada al entregable</b> del trabajo que debe ejecutar el equipo para cumplir los objetivos. Aplica el principio "divide y vencerás": fragmentar el trabajo en partes manejables.</p>
+  <ul><li>Cada nivel descendente = una definición <b>más detallada</b> del trabajo.</li>
+  <li>El nivel superior representa el <b>proyecto completo</b>.</li>
+  <li>Define el <b>alcance</b> en entregables, cuentas de control y <b>paquetes de trabajo</b>.</li></ul>
+  <h4>✅ Beneficios</h4>
+  <ul><li>Mejor comunicación con patrocinadores e involucrados.</li>
+  <li>Estimación más precisa de tareas, riesgos, plazos y costos.</li>
+  <li>Reduce la incertidumbre al aclarar el trabajo requerido.</li></ul>
+  <div class="key">📌 La <b>EDT define QUÉ hacer</b>; luego la <b>estimación</b> define cuánto tiempo/recursos/costo y la <b>planificación</b> organiza cuándo y cómo.</div>`,
+  quiz:[
+   {t:"La EDT es una descomposición jerárquica orientada a...",o:["Los entregables","Los empleados","Los clientes","Los riesgos"],a:0,e:"La EDT/WBS se orienta a los entregables del proyecto."},
+   {t:"En la secuencia de planificación, la EDT sirve para definir...",o:["QUÉ hacer","Cuánto pagar al cliente","El color del producto","La fecha de garantía"],a:0,e:"EDT = qué hacer; estimación = cuánto; planificación = cuándo/cómo."},
+   {t:"V/F: La unidad más pequeña de la EDT se llama paquete de trabajo.",vf:true,e:"Verdadero: los paquetes de trabajo son el nivel más bajo de la EDT."}
+  ]},
+
+ {id:"m10",unit:"2 · Fase de Definición",ic:"⏱️",title:"Estimación",
+  sub:"Tiempo, costo y recursos",
+  body:`
+  <h4>🎯 ¿Qué es estimar?</h4>
+  <p>Aproximar <b>tiempo, costo y recursos</b> a partir de información incompleta: siempre hay incertidumbre. Es la base para armar el plan y el presupuesto.</p>
+  <h4>🛠️ Técnicas de estimación</h4>
+  <table><tr><th>Técnica</th><th>Idea</th></tr>
+  <tr><td>Experiencia personal (expertos)</td><td>Juicio de quien ya lo hizo.</td></tr>
+  <tr><td>Historia</td><td>Datos de proyectos anteriores similares.</td></tr>
+  <tr><td>Fórmulas</td><td>Modelos paramétricos (ej. COCOMO).</td></tr>
+  <tr><td>Estimación en grupo</td><td>Varios estiman y se acuerda; más precisa pero más lenta.</td></tr></table>
+  <div class="key">📌 Lo recomendable es tomar un <b>promedio discutido</b> de estimaciones. Las tareas se subdividen hasta que sean pequeñas (≤ 1 semana), controlables, asignables y estimables.</div>`,
+  quiz:[
+   {t:"¿Cuál técnica de estimación es más precisa pero más lenta?",o:["Estimación en grupo","Fórmulas","Un solo experto apurado","Adivinar"],a:0,e:"La estimación en grupo suele ser la más precisa pero la más lenta."},
+   {t:"En la estimación, lo más recomendable es...",o:["Tomar un promedio discutido de estimaciones","Usar el valor más bajo","Usar el valor más alto","No estimar"],a:0,e:"Se aconseja un promedio discutido entre las estimaciones."},
+   {t:"Nombrá una técnica de estimación vista en el curso.",short:true,keys:["experto","historia","formula","fórmula","grupo","experiencia"],model:"Experiencia personal (expertos), historia, fórmulas o estimación en grupo.",e:"Cuatro técnicas: expertos, historia, fórmulas y estimación en grupo."}
+  ]},
+
+ {id:"m11",unit:"2 · Fase de Definición",ic:"🛣️",title:"Planificación y Camino Crítico",
+  sub:"Precedencias, Gantt e hitos",
+  body:`
+  <h4>🔗 Precedencias</h4>
+  <p>Una tarea que debe terminar/empezar antes que otra es <b>predecesora</b>; la que depende de ella es <b>sucesora</b>. El <b>diagrama de precedencias</b> permite hallar el camino crítico y la duración mínima.</p>
+  <h4>🛣️ Camino crítico</h4>
+  <p>Es la <b>secuencia de tareas más larga</b> del proyecto: determina la <b>duración mínima total</b>. Si una tarea del camino crítico se atrasa, <b>se atrasa todo el proyecto</b> (esas tareas no tienen holgura).</p>
+  <h4>📊 Diagrama de Gantt</h4>
+  <p>Representa las <b>tareas en el eje Y</b> y el <b>tiempo en el eje X</b>, mostrando duraciones y solapamientos.</p>
+  <h4>📍 Hitos (mojones)</h4>
+  <p>Puntos de control destacados que indican que una tarea/fase terminó con éxito (ej.: especificación completa, codificación sin errores, documentación finalizada, instalación).</p>
+  <div class="key">📌 Gantt: <b>X = tiempo</b>, <b>Y = tareas</b>. Camino crítico = ruta más larga = duración mínima del proyecto.</div>`,
+  quiz:[
+   {t:"En un diagrama de Gantt, ¿qué va en el eje X y en el eje Y?",o:["X = tiempo, Y = tareas","X = tareas, Y = costo","X = costo, Y = tiempo","X = riesgos, Y = personas"],a:0,e:"Gantt: eje X el tiempo, eje Y las tareas/actividades."},
+   {t:"Definí con tus palabras el camino crítico.",short:true,keys:["mas larga","más larga","larga","duracion","duración","minima","mínima","holgura","retras","atras"],model:"Es la secuencia de tareas más larga del proyecto; define la duración mínima total y si una de sus tareas se atrasa, se atrasa todo el proyecto (no tiene holgura).",e:"Camino crítico = ruta más larga = duración mínima; sin holgura."},
+   {t:"V/F: Atrasar una tarea del camino crítico atrasa todo el proyecto.",vf:true,e:"Verdadero: las tareas del camino crítico no tienen holgura."}
+  ]},
+
+ {id:"m12",unit:"2 · Fase de Definición",ic:"🎲",title:"Gestión de Riesgos",
+  sub:"Identificar, priorizar y responder",
+  body:`
+  <h4>🎲 ¿Qué es un riesgo?</h4>
+  <p>Un <b>evento o condición incierta</b> que, si ocurre, tiene un efecto (positivo o negativo) sobre los objetivos del proyecto (alcance, cronograma, costo, calidad). Importa porque los proyectos operan bajo incertidumbre.</p>
+  <h4>🔄 Proceso (PMBOK)</h4>
+  <p>Planificación → identificación → análisis cualitativo → análisis cuantitativo → planificación de respuestas → monitoreo continuo.</p>
+  <h4>📊 Priorización</h4>
+  <p>La <b>prioridad</b> de un riesgo se estima combinando su <b>probabilidad</b> de ocurrencia y su <b>impacto</b> (ponderación). La matriz de probabilidad × impacto los clasifica en alto/medio/bajo.</p>
+  <h4>🛡️ Respuestas y contingencia</h4>
+  <ul><li>Estrategias: <b>evitar, mitigar, transferir o aceptar</b> (para oportunidades: explotar, mejorar, compartir).</li>
+  <li><b>Plan de contingencia:</b> acciones + responsable + <b>reserva</b> de tiempo/presupuesto para cuando el riesgo ocurre.</li></ul>
+  <div class="key">📌 El <b>Director SIEMPRE es responsable</b> si un riesgo no previsto lleva al fracaso. Acciones frente al riesgo: prevenir, eliminar, minimizar impacto.</div>`,
+  quiz:[
+   {t:"¿Cómo se estima la prioridad de un riesgo?",o:["Combinando probabilidad e impacto","Solo por su costo","Por orden alfabético","Al azar"],a:0,e:"Prioridad = probabilidad × impacto (ponderación)."},
+   {t:"¿Cuál NO es una estrategia de respuesta a un riesgo negativo?",o:["Explotarlo","Evitarlo","Mitigarlo","Transferirlo"],a:0,e:"Evitar/mitigar/transferir/aceptar son para amenazas; explotar/mejorar/compartir son para oportunidades."},
+   {t:"V/F: Un riesgo siempre tiene efecto negativo.",vf:false,e:"Falso. Un riesgo puede tener efecto positivo (oportunidad) o negativo (amenaza)."}
+  ]},
+
+ {id:"m13",unit:"2 · Fase de Definición",ic:"👥",title:"Stakeholders (Involucrados)",
+  sub:"Actores del proyecto",
+  body:`
+  <h4>👥 ¿Quiénes son?</h4>
+  <p>Personas y organismos que tienen una <b>implicación en el proyecto</b> y pueden influir en su éxito o fracaso.</p>
+  <h4>🎭 Roles principales</h4>
+  <ul><li><b>Sponsor / Patrocinador:</b> impulsa el proyecto; suele decidir sobre recursos económicos y de personal (clave en proyectos internos).</li>
+  <li><b>Director de proyecto:</b> responsable de la gestión y ejecución.</li>
+  <li><b>Gerencia:</b> prioriza proyectos y asigna recursos.</li>
+  <li><b>Ingeniería / Producción / Instalación, Compras, Ventas, Logística.</b></li>
+  <li><b>Cliente:</b> acepta la entrega final (interno o externo).</li></ul>
+  <div class="key">📌 La gestión de stakeholders <b>NO es</b> marketing, ventas ni relaciones públicas: es gestionar activamente las expectativas e influencia de los involucrados.</div>`,
+  quiz:[
+   {t:"El stakeholder que da el impulso inicial y decide sobre recursos es el...",o:["Sponsor / Patrocinador","Programador","Tester","Proveedor de café"],a:0,e:"El sponsor impulsa el proyecto y suele decidir sobre recursos."},
+   {t:"V/F: La gestión de stakeholders es lo mismo que hacer marketing.",vf:false,e:"Falso: NO es marketing, ni ventas, ni relaciones públicas."},
+   {t:"¿Quién acepta finalmente la entrega del proyecto?",o:["El cliente","El sponsor","El proveedor","La logística"],a:0,e:"El cliente (interno o externo) acepta la entrega final."}
+  ]},
+
+ {id:"m14",unit:"2 · Fase de Definición",ic:"📄",title:"La Propuesta",
+  sub:"Documento final de Definición",
+  body:`
+  <h4>📄 ¿Qué es?</h4>
+  <p>Documento <b>formal, técnico y comercial</b> que presenta el proyecto al cliente. Es el <b>resultado de requerimientos + factibilidad + planificación</b> y sirve para tomar la <b>decisión de inversión</b>. Es el documento <b>final de la fase de Definición</b>.</p>
+  <h4>❓ Dos grandes interrogantes que responde</h4>
+  <p>Básicamente: <b>¿QUÉ se va a hacer</b> (alcance/solución) y <b>a QUÉ costo y plazo</b> se hará. Formaliza el proyecto y actúa como herramienta de venta.</p>
+  <h4>🧱 Estructura general</h4>
+  <ul><li>Carta de presentación (firmada por el director).</li>
+  <li>Presentación del problema (basada en requerimientos).</li>
+  <li>Plan del proyecto: actividades, responsabilidades, rol del cliente, hitos.</li>
+  <li>Entregables, cronograma, costos, forma de pago y condiciones de aceptación.</li>
+  <li>Notas/riesgos, garantía y aclaraciones.</li></ul>
+  <div class="key">📌 Buena propuesta: <b>clara, breve, enfocada y orientada a la decisión</b>. En la fase de <b>Análisis</b> se genera luego la <b>Propuesta de Ejecución</b>, más detallada y precisa.</div>`,
+  quiz:[
+   {t:"La Propuesta es el documento final de qué fase?",o:["Definición","Aceptación","Uso","Testeo"],a:0,e:"La Propuesta cierra la fase de Definición."},
+   {t:"La Propuesta se caracteriza por ser...",o:["Técnica y comercial","Solo técnica","Solo legal","Un manual de usuario"],a:0,e:"Es un documento técnico y comercial a la vez."},
+   {t:"¿Qué dos interrogantes busca develar la Propuesta?",short:true,keys:["que","qué","como","cómo","costo","plazo","cuanto","cuánto","hacer","alcance"],model:"Qué se va a hacer (alcance/solución) y a qué costo y plazo se realizará.",e:"Qué se hará y a qué costo/plazo."}
+  ]},
+
+ /* ---------- UNIDAD 3: PERSONAS ---------- */
+ {id:"m15",unit:"3 · Personas y Equipos",ic:"🏗️",title:"Organización y Equipos",
+  sub:"Estructuras y tipos de equipo",
+  body:`
+  <h4>💸 El costo de los errores con las personas</h4>
+  <p>Según McConnell (1996), los errores clásicos <b>con las personas</b> son los más caros para un proyecto (mayor que producto, proceso o tecnología).</p>
+  <h4>🏗️ Estructuras de organización</h4>
+  <table><tr><th>Estructura</th><th>Característica</th></tr>
+  <tr><td><b>Por proyectos</b></td><td>Un equipo desarrolla el proyecto de principio a fin; al terminar se disuelve.</td></tr>
+  <tr><td><b>Por áreas funcionales</b></td><td>Equipos técnicos muy especializados; riesgo de descontento por tareas rutinarias.</td></tr>
+  <tr><td><b>Matricial</b></td><td>Áreas funcionales participan en varios proyectos; cada integrante responde a <b>dos jefes</b> → posibles conflictos.</td></tr></table>
+  <h4>👫 Organización del equipo</h4>
+  <p><b>Grupos democráticos:</b> decisiones por consenso, liderazgo rotativo, favorecen el desarrollo. También existen equipos jerárquicos (para proyectos grandes con roles claros).</p>
+  <div class="key">📌 Para un equipo pequeño de gente <b>muy capacitada</b> y multidisciplinaria (ej. investigación/innovación), conviene una organización <b>democrática / por consenso</b>. Para un equipo grande de <b>recién egresados</b>, conviene una estructura <b>jerárquica</b> con dirección técnica fuerte.</div>`,
+  quiz:[
+   {t:"En la estructura matricial, un integrante suele responder a...",o:["Dos jefes (área y proyecto)","Nadie","Solo el cliente","El sponsor"],a:0,e:"En la matricial hay doble mando: jefe de área y jefe de proyecto."},
+   {t:"Para un grupo pequeño de expertos en I+D, ¿qué organización conviene?",o:["Democrática / por consenso","Estrictamente jerárquica militar","Sin líder","Por áreas rutinarias"],a:0,e:"Los grupos democráticos favorecen a equipos altamente capacitados y creativos."},
+   {t:"Según McConnell, los errores más caros de un proyecto son los relacionados con...",o:["Las personas","El hardware","El papeleo","El logo"],a:0,e:"Las personas concentran el mayor costo de los errores clásicos."}
+  ]},
+
+ {id:"m16",unit:"3 · Personas y Equipos",ic:"🧑‍✈️",title:"Liderazgo y Roles",
+  sub:"Director vs Director Técnico · Boehm",
+  body:`
+  <h4>🧑‍✈️ Director del Proyecto vs Director Técnico</h4>
+  <table><tr><th>Director del Proyecto</th><th>Director Técnico (Conductor)</th></tr>
+  <tr><td>Responsable directo de <b>alcance, plazo y costo</b>.</td><td>Responsable directo de la <b>calidad del producto/servicio</b>.</td></tr>
+  <tr><td>Maneja <b>expectativas, riesgos</b> y desarrollo de RRHH.</td><td>Conduce técnicamente el proyecto.</td></tr>
+  <tr><td><b>Protege al equipo</b>, provee recursos y <b>resuelve conflictos humanos</b>.</td><td>Realiza el control informal (pausas, almuerzos).</td></tr></table>
+  <h4>🌟 Liderazgo</h4>
+  <p>Un líder debe <b>motivar</b>, vincularse con las personas, estar disponible, desarrollar el talento, dar devoluciones, gestionar bien los conflictos y estimular el cambio y la toma de riesgos. Errores (Kohlrieser): no vincularse, ignorar emociones, no motivar, etc.</p>
+  <div class="key">📌 <b>Boehm (1981):</b> el factor que <b>más influye en la productividad</b> es <b>la gente / las personas</b> (la capacidad y experiencia del equipo). "El hombre es el factor."</div>`,
+  quiz:[
+   {t:"¿Quién es responsable directo del alcance, plazo y costo?",o:["El Director del Proyecto","El Director Técnico","El cliente","El sponsor"],a:0,e:"El Director del proyecto responde por alcance, plazo y costo; el DT por la calidad del producto."},
+   {t:"Según Boehm, el factor que más influye en la productividad es...",o:["Las personas / la gente","El lenguaje de programación","El presupuesto","La oficina"],a:0,e:"Boehm: el factor humano (capacidad del equipo) es el de mayor influencia."},
+   {t:"V/F: El Director Técnico es responsable directo de la calidad del producto/servicio.",vf:true,e:"Verdadero: el DT responde por la calidad del producto; el Director por alcance/plazo/costo."},
+   {t:"¿Quién se encarga de resolver los conflictos humanos y proteger al equipo?",o:["El Director del Proyecto","El Director Técnico","El tester","El proveedor"],a:0,e:"El Director protege al equipo, provee recursos y resuelve conflictos humanos."}
+  ]},
+
+ {id:"m17",unit:"3 · Personas y Equipos",ic:"💬",title:"Comunicación",
+  sub:"Sintáctica, semántica y pragmática",
+  body:`
+  <h4>💬 La comunicación</h4>
+  <p>Proceso mediante el cual se <b>transfiere información</b>; es la herramienta esencial para organizar las acciones de una organización.</p>
+  <h4>🧩 Tres componentes</h4>
+  <table><tr><th>Componente</th><th>Estudia...</th></tr>
+  <tr><td><b>Sintáctica</b></td><td>Los canales: verbal, paraverbal (tono, volumen), no verbal (gestos), contextual.</td></tr>
+  <tr><td><b>Semántica</b></td><td>El significado. Las palabras no tienen significado propio: se lo dan las personas → surgen malentendidos.</td></tr>
+  <tr><td><b>Pragmática</b></td><td>Cómo el contexto condiciona la comunicación (ej. "ya es tarde" según la situación).</td></tr></table>
+  <h4>❓ Preguntas básicas</h4>
+  <p>¿Quién es el destinatario? ¿Qué debe quedar claro en su mente? ¿Qué herramientas usaré? ¿Con qué cuento? ¿En qué contexto?</p>
+  <div class="key">📌 El responsable de la comunicación efectiva usa el <b>feed-back</b> para confirmar que el mensaje se entendió.</div>`,
+  quiz:[
+   {t:"El componente que estudia los canales (verbal, no verbal, tono) es la...",o:["Sintáctica","Semántica","Pragmática","Retórica"],a:0,e:"La sintáctica estudia los canales de la comunicación."},
+   {t:"Que dos personas atribuyan distinto significado a una palabra es un problema...",o:["Semántico","Sintáctico","De hardware","De presupuesto"],a:0,e:"El malentendido semántico surge del significado que cada uno atribuye."},
+   {t:"V/F: La herramienta clave para asegurar comunicación efectiva es el feed-back.",vf:true,e:"Verdadero: el feed-back confirma que el mensaje fue comprendido."}
+  ]},
+
+ /* ---------- UNIDAD 4: FASES SUBSIGUIENTES ---------- */
+ {id:"m18",unit:"4 · Fases subsiguientes",ic:"🔬",title:"Análisis, Diseño y Elaboración",
+  sub:"Productos de cada fase",
+  body:`
+  <h4>🔬 Análisis</h4>
+  <p>Objetivo: <b>comprensión cabal</b> del proyecto. Productos: <b>Propuesta de Ejecución</b> y <b>Especificaciones Funcionales</b> (describen las funciones del resultado: interfaz, procesos, datos).</p>
+  <div class="key">📌 Diferencia clave: la <b>Propuesta</b> (Definición) es más general y comercial; la <b>Propuesta de Ejecución</b> (Análisis) es más <b>detallada y precisa</b> en costos y alcance.</div>
+  <h4>✏️ Diseño</h4>
+  <p>Define <b>cómo</b> se construirá la solución. Aquí se <b>diseña el Test de Aceptación</b> (se aplica después, en Aceptación).</p>
+  <h4>🔨 Elaboración / Implementación</h4>
+  <ul><li>Diseño detallado, revisión de cada unidad, creación de la unidad, testeo.</li>
+  <li><b>Documentación</b> (≈50% del trabajo): guía del <b>usuario</b>, guía de <b>mantenimiento</b>, guía de <b>entrenamiento</b>.</li></ul>`,
+  quiz:[
+   {t:"¿Qué dos documentos emergen como productos de la fase de Análisis?",short:true,keys:["propuesta de ejecuc","especificacion","especificación","funcional"],model:"La Propuesta de Ejecución y las Especificaciones Funcionales.",e:"Análisis produce la Propuesta de Ejecución y las Especificaciones Funcionales."},
+   {t:"¿Cuál es la diferencia entre la Propuesta y la Propuesta de Ejecución?",o:["La de Ejecución (Análisis) es más detallada y precisa","Son idénticas","La de Ejecución no tiene costos","La Propuesta es de la fase de Uso"],a:0,e:"La Propuesta de Ejecución afina y detalla lo planteado en la Propuesta inicial."},
+   {t:"Los 3 grupos de documentación de la fase de Elaboración son guía de usuario, de mantenimiento y de...",o:["Entrenamiento","Marketing","Ventas","Compras"],a:0,e:"Guía del usuario, de mantenimiento y de entrenamiento."}
+  ]},
+
+ {id:"m19",unit:"4 · Fases subsiguientes",ic:"✅",title:"Testeo, Integración y Aceptación",
+  sub:"Verificación, Aceptación y Uso",
+  body:`
+  <h4>🧪 Testeo e Integración</h4>
+  <p>Objetivo: <b>integrar componentes</b> y hacer la <b>prueba general</b>. Recomendaciones: seguir el plan definido en Diseño y que el <b>testeo lo hagan miembros no autores</b>. Estrategias: de arriba a abajo, de abajo a arriba, versiones simplificadas.</p>
+  <h4>🤝 Aceptación</h4>
+  <p>Objetivo: <b>entrega oficial</b> al cliente y obtener un <b>documento de conformidad firmado</b>. Se ejecuta el <b>Test de Aceptación</b> (diseñado en la fase de Diseño). Si surgen errores: solucionarlos, fijar nueva prueba o negociar.</p>
+  <p>La <b>demostración al cliente</b> del producto se realiza aquí; su cometido es que el cliente <b>verifique y acepte</b> el producto. El principal producto a recabar es la <b>conformidad/aceptación firmada</b>.</p>
+  <h4>🔧 Uso</h4>
+  <p>Etapas: <b>Garantía</b> y <b>Uso normal + Mantenimiento</b>.</p>
+  <div class="key">📌 El <b>Test de Aceptación se diseña en Diseño</b>, no en Testeo. Se <b>aplica</b> en la fase de Aceptación para que el cliente firme la conformidad.</div>`,
+  quiz:[
+   {t:"El Test de Aceptación se diseña en la fase de...",o:["Diseño","Testeo e Integración","Aceptación","Uso"],a:0,e:"Se diseña en Diseño y se aplica en Aceptación."},
+   {t:"¿Qué se debe obtener al final de la fase de Aceptación?",o:["Un documento de conformidad firmado por el cliente","La EDT","La propuesta","El estudio de factibilidad"],a:0,e:"La aceptación busca la conformidad firmada del cliente."},
+   {t:"V/F: Es recomendable que el testeo lo hagan los mismos autores del código.",vf:false,e:"Falso: se recomienda que el testeo lo hagan miembros NO autores."}
+  ]},
+
+ /* ---------- UNIDAD 5: CONTROL ---------- */
+ {id:"m20",unit:"5 · Control y Seguimiento",ic:"🎛️",title:"Control y Seguimiento",
+  sub:"Tipos de control y detección de problemas",
+  body:`
+  <h4>🎛️ Concepto clave</h4>
+  <p><b>CONTROL = SEGUIMIENTO SEMANAL.</b> Se comparan avance, plazos y costos contra la planificación (la <b>línea base</b>). Ante desvíos: redistribuir recursos o modificar relaciones entre tareas.</p>
+  <h4>🧾 Tipos de control</h4>
+  <table><tr><th>Del Director</th><th>Del Cliente</th></tr>
+  <tr><td><b>Informal</b> (durante pausas/almuerzos, lo hace sobre todo el DT) y <b>Auditorías</b> (formales e imparciales, las realiza el Director).</td><td>Sobre presupuesto y avance del proyecto.</td></tr></table>
+  <h4>🚨 Detectar y resolver problemas</h4>
+  <p>Señales: exceso de horas extras, desvíos de costo/plazo. Medidas con el equipo: <b>ayudar, motivar, premiar, sancionar</b> y, si es necesario, <b>sustituir</b>. También renegociar con el cliente.</p>
+  <div class="key">📌 <b>Línea base:</b> es la planificación "congelada" (alcance, cronograma y costo aprobados) contra la cual se mide el desempeño real. Es la referencia del seguimiento y control.</div>`,
+  quiz:[
+   {t:"¿Qué es la 'línea base' de un proyecto?",short:true,keys:["planific","congel","referencia","aprob","comparar","base","original"],model:"Es la planificación congelada/aprobada (alcance, cronograma y costo) que sirve de referencia para comparar el desempeño real durante el seguimiento y control.",e:"Línea base = plan aprobado y congelado usado como referencia de control."},
+   {t:"Las auditorías del Director se caracterizan por ser...",o:["Formales e imparciales","Informales","Secretas","Improvisadas"],a:0,e:"Las auditorías son formales e imparciales y las realiza el Director."},
+   {t:"El concepto clave del control es...",o:["Seguimiento semanal","Control anual","No controlar","Solo controlar al final"],a:0,e:"El curso enfatiza el control como seguimiento semanal."}
+  ]},
+
+ {id:"m21",unit:"5 · Control y Seguimiento",ic:"🗓️",title:"Reuniones de Evaluación",
+  sub:"Avance, coordinación, información, verificación",
+  body:`
+  <h4>🗓️ Tipos de reuniones de evaluación</h4>
+  <table><tr><th>Reunión</th><th>Participantes</th><th>Cometido</th></tr>
+  <tr><td><b>Evaluación de Avance</b></td><td>DT + miembros (Director asistencia periódica recomendada)</td><td>Evaluar el avance real vs planificado (≈30 min).</td></tr>
+  <tr><td><b>Coordinación</b></td><td>Director + DT</td><td>Coordinar acciones; se recomiendan gráficos de evolución de plazos y costos.</td></tr>
+  <tr><td><b>Información</b></td><td>Equipo / involucrados</td><td>Transmitir información; se basa en la reunión de avance.</td></tr>
+  <tr><td><b>Verificación</b></td><td>Según corresponda</td><td>Verificar cumplimiento (no necesariamente periódica).</td></tr></table>
+  <div class="key">📌 <b>No todas</b> las reuniones periódicas tienen la <b>misma frecuencia</b>. La reunión de <b>información se basa</b> en la de <b>avance</b>. Las <b>periódicas</b> son avance, coordinación e información; la de <b>verificación</b> no es necesariamente periódica.</div>`,
+  quiz:[
+   {t:"En la reunión de Coordinación participan...",o:["Director y Director Técnico","Solo el cliente","Todo el público","Solo el sponsor"],a:0,e:"La reunión de coordinación es entre el Director y el DT."},
+   {t:"V/F: Todas las reuniones de evaluación periódicas tienen la misma frecuencia.",vf:false,e:"Falso: no todas tienen la misma frecuencia."},
+   {t:"La reunión de Información se basa directamente en la reunión de...",o:["Avance","Verificación","Cierre","Compras"],a:0,e:"La reunión de información se apoya en la de evaluación de avance."}
+  ]},
+
+ {id:"m22",unit:"5 · Control y Seguimiento",ic:"📈",title:"Valor Ganado (EVM)",
+  sub:"PV, EV, AC y sus índices",
+  body:`
+  <h4>📈 ¿Qué es el Método del Valor Ganado?</h4>
+  <p>Integra en un solo análisis las tres preguntas clave: <b>¿cuánto trabajo se hizo?</b>, <b>¿estamos en cronograma?</b> y <b>¿estamos en presupuesto?</b>. Compara 3 curvas "S" (planificado, ganado y costo real) y da señales tempranas de la "salud" del proyecto.</p>
+  <h4>🔢 Las 3 variables base</h4>
+  <ul><li><b>PV</b> (Valor Planeado) = <code>BAC × % planificado</code> — lo que se debía haber avanzado (en $).</li>
+  <li><b>EV</b> (Valor Ganado) = <code>BAC × % real ejecutado</code> — el valor del trabajo realmente hecho.</li>
+  <li><b>AC</b> (Costo Real) — lo realmente gastado a la fecha.</li>
+  <li><b>BAC</b> = presupuesto total del proyecto.</li></ul>
+  <h4>🧮 Fórmulas</h4>
+  <table><tr><th>Indicador</th><th>Fórmula</th><th>Interpretación</th></tr>
+  <tr><td>CV (Var. Costo)</td><td><code>EV − AC</code></td><td>&gt;0 bajo presupuesto · &lt;0 sobrecosto</td></tr>
+  <tr><td>SV (Var. Cronograma)</td><td><code>EV − PV</code></td><td>&gt;0 adelantado · &lt;0 atrasado</td></tr>
+  <tr><td>CPI (Desemp. Costo)</td><td><code>EV / AC</code></td><td>&gt;1 eficiente · &lt;1 sobrecosto</td></tr>
+  <tr><td>SPI (Desemp. Cronog.)</td><td><code>EV / PV</code></td><td>&gt;1 adelantado · &lt;1 atrasado</td></tr>
+  <tr><td>EAC (Estimado a concluir)</td><td><code>BAC / CPI</code></td><td>= AC + (BAC−EV)/CPI</td></tr>
+  <tr><td>ETC (Falta gastar)</td><td><code>(BAC−EV)/CPI</code></td><td>= EAC − AC</td></tr>
+  <tr><td>VAC (Var. al término)</td><td><code>BAC − EAC</code></td><td>&gt;0 termina bajo presup.</td></tr></table>
+  <div class="key">📌 CPI = "cuántos $ de trabajo obtuve por cada $ gastado". Ej.: CPI = 0,85 → por cada $1 gastado se produjo $0,85 de trabajo → <b>sobrecosto</b>. Practicá en la sección <b>Valor Ganado</b>. 👉</div>`,
+  quiz:[
+   {t:"El Valor Ganado (EV) se calcula como...",o:["BAC × % real ejecutado","BAC × % planificado","AC − PV","EV / AC"],a:0,e:"EV = BAC × % de avance real."},
+   {t:"Un CPI = 0,85 significa que el proyecto...",o:["Tiene sobrecosto (gasta más de lo que produce)","Va perfecto","Está adelantado en el tiempo","Terminó"],a:0,e:"CPI<1 indica ineficiencia de costos: por cada $1 gastado, $0,85 de trabajo."},
+   {t:"¿En qué 3 variables se basa el Valor Ganado?",short:true,keys:["pv","ev","ac","planeado","planificado","ganado","real","costo"],model:"Valor Planeado (PV), Valor Ganado (EV) y Costo Real (AC).",e:"PV, EV y AC son las tres variables base del EVM."},
+   {t:"SPI = EV/PV menor a 1 indica que el proyecto está...",o:["Atrasado respecto al cronograma","Adelantado","Bajo presupuesto","Sobre presupuesto"],a:0,e:"SPI<1 = avance más lento de lo planificado (atrasado)."}
+  ]},
+
+ /* ---------- UNIDAD 6: COMPRAS Y CIERRE ---------- */
+ {id:"m23",unit:"6 · Compras y Cierre",ic:"🛒",title:"Compras e Integración",
+  sub:"Licitaciones y compras del Estado",
+  body:`
+  <h4>🤔 ¿Hacer o comprar?</h4>
+  <p>Compras cubre las necesidades con elementos externos. <b>No conviene comprar</b> cuando hay ventajas verificables de costo (recursos ociosos), cuando no se puede garantizar seguridad de entrega/calidad/diseño de otra forma, o cuando se trata del <b>negocio central</b> de la empresa.</p>
+  <h4>🏢 Enfoque convencional (empresa privada)</h4>
+  <p>Pedir al menos <b>3 presupuestos</b>, comprar a varios proveedores (baja precios), no atarse a un proveedor. Pasos: describir necesidades → oferentes → solicitar cotización → evaluar → seleccionar la más conveniente → orden de compra → recibir → pagar.</p>
+  <h4>🔗 Dos modelos de compra</h4>
+  <p><b>Compra tradicional</b> vs <b>Integración</b>. Para elegir se consideran <b>dos indicadores</b>: la <b>complejidad/valor estratégico</b> del ítem y su <b>frecuencia/volumen</b>. A mayor criticidad y continuidad → conviene <b>Integración</b> (relación de largo plazo); ítems simples y esporádicos → <b>compra tradicional</b>.</p>
+  <h4>🏛️ Compras del Estado</h4>
+  <p>El Estado usa <b>procesos competitivos</b>: licitación pública, licitación abreviada, compra directa, etc. <b>No siempre</b> está obligado a licitar: para montos pequeños o casos de excepción puede usar <b>compra directa</b>. Para un ERP estándar de un ente, suele hacerse <b>licitación</b> con pliego de condiciones; puede requerir <b>llamado a expresiones de interés</b>.</p>
+  <div class="key">📌 ¿Un organismo del Estado siempre debe licitar? <b>No</b>: depende del monto y de excepciones legales (compra directa para montos menores).</div>`,
+  quiz:[
+   {t:"En el enfoque convencional de compras privadas se recomienda pedir al menos...",o:["3 presupuestos","1 presupuesto","10 presupuestos","Ninguno"],a:0,e:"Se piden al menos 3 presupuestos y se compra a varios proveedores."},
+   {t:"V/F: Un organismo del Estado siempre está obligado a realizar una licitación.",vf:false,e:"Falso: para montos pequeños o excepciones puede usar compra directa."},
+   {t:"¿Cuándo NO conviene comprar (hacer internamente)?",o:["Cuando se trata del negocio central de la empresa","Cuando es más barato afuera","Cuando hay muchos proveedores","Siempre conviene comprar"],a:0,e:"No se terceriza el core business ni cuando no se garantiza seguridad/calidad de otro modo."}
+  ]},
+
+ {id:"m24",unit:"6 · Compras y Cierre",ic:"🏁",title:"Cierre y Lecciones Aprendidas",
+  sub:"Gestión del conocimiento",
+  body:`
+  <h4>🏁 Cierre del proyecto</h4>
+  <p>Al cerrar se verifica que el producto resuelva el problema del usuario y que <b>todos queden conformes</b> (usuario, cliente, dirección y equipo), se formaliza la entrega y se documentan las lecciones.</p>
+  <h4>📚 Lecciones aprendidas</h4>
+  <p>Se documentan <b>a lo largo de todo el ciclo de vida</b>, pero como <b>mínimo en el cierre</b>. Sirven para: identificar factores de éxito y deficiencias, resolver problemas con nuevos cursos de acción (innovación) y <b>mejorar la toma de decisiones futura</b>.</p>
+  <p>Responden a: ¿Qué pasó y por qué? ¿Qué funcionó? ¿Qué mejorar?</p>
+  <div class="key">📌 "El negligente no aprende de sus errores; el inteligente sí; el sabio aprende de los errores <b>ajenos</b>." La gestión del conocimiento asegura que el aprendizaje no se pierda.</div>`,
+  quiz:[
+   {t:"¿Cuándo deben documentarse, como mínimo, las lecciones aprendidas?",o:["En el cierre del proyecto","Nunca","Solo al inicio","Solo si falla"],a:0,e:"Se documentan durante todo el ciclo, pero como mínimo en el cierre."},
+   {t:"V/F: Las lecciones aprendidas sirven para mejorar la toma de decisiones futura.",vf:true,e:"Verdadero: son clave para la gestión del conocimiento y decisiones futuras."},
+   {t:"Al cerrar el proyecto se verifica que estén conformes...",o:["Usuario, cliente, dirección y equipo","Solo el cliente","Solo el equipo","Solo el proveedor"],a:0,e:"Se busca la conformidad de todos los involucrados."}
+  ]}
+];
+
+/* ============================================================
+   BANCO DEL SIMULACRO (estilo parciales 2017–2025)
+   tipos: mcq | multi | vf | short   (EVM se genera aparte)
+   ============================================================ */
+const EXAM_BANK = [
+ {type:"short",tag:"short",q:"Explique con sus palabras qué entiende por proyecto.",keys:["temporal","unico","único","inicio","fin","resultado","producto","servicio","esfuerzo"],model:"Esfuerzo temporal (con inicio y fin) que produce un producto, servicio o resultado único, con alcance, tiempo, costo y calidad definidos."},
+ {type:"short",tag:"short",q:"¿Por qué se dice que un proyecto fracasa en el comienzo? Dé un ejemplo.",keys:["plan","planific","no existe","arranca","comienza","inadecuad"],model:"Porque arranca sin un plan / sin planificación adecuada (o con un equipo inadecuado). Ej.: empezar a construir sin requerimientos ni cronograma definidos."},
+ {type:"mcq",tag:"mcq",q:"¿Cuál es la diferencia entre un proyecto y un proceso?",o:["El proyecto es temporal y único; el proceso es repetitivo y continuo","El proceso siempre cuesta más","El proyecto no tiene fin","No hay diferencia"],a:0},
+ {type:"short",tag:"short",q:"Enumere los 3 Factores Críticos de Éxito tradicionales.",keys:["alcance","plazo","tiempo","costo"],model:"Alcance, Plazo (tiempo) y Costo."},
+ {type:"short",tag:"short",q:"Enumere las fases del proyecto vistas en el curso.",keys:["definicion","definición","analisis","análisis","diseño","diseno","elaboracion","elaboración","test","integracion","integración","aceptacion","aceptación","uso"],model:"Definición, Análisis, Diseño, Elaboración/Implementación, Testeo e Integración, Aceptación y Uso."},
+ {type:"multi",tag:"multi",q:"Marque cuáles SON fases vistas en el curso.",o:["Definición","Sprint","Aceptación","Diseño","Curva de Valor Ganado"],a:[0,2,3]},
+ {type:"short",tag:"short",q:"Nombre al menos 4 documentos/productos de la fase de Definición.",keys:["requerimiento","factibilidad","viabilidad","edt","estimacion","estimación","planificacion","planificación","riesgo","propuesta"],model:"Requerimientos, estudio de factibilidad, EDT, estimación/planificación, análisis de riesgos y la Propuesta."},
+ {type:"mcq",tag:"mcq",q:"¿En qué documento se delimita el problema y las funcionalidades a entregar?",o:["Especificación de requerimientos","Acta de cierre","Orden de compra","Diagrama de Gantt"],a:0},
+ {type:"short",tag:"short",q:"¿Qué significa Normalización de Requerimientos y por qué es importante?",keys:["ordenar","estandar","clar","consist","ambig","unific","uniform"],model:"Ordenar y estandarizar los requerimientos para que sean claros, consistentes y sin ambigüedades; evita malentendidos y errores costosos."},
+ {type:"short",tag:"short",q:"Defina con sus palabras el camino crítico del proyecto.",keys:["mas larga","más larga","larga","duracion","duración","minima","mínima","holgura","atras","retras","secuencia"],model:"Secuencia de tareas más larga; determina la duración mínima del proyecto; si una de sus tareas se atrasa, se atrasa todo (sin holgura)."},
+ {type:"mcq",tag:"mcq",q:"En un diagrama de Gantt, ¿qué se representa en cada eje?",o:["X = tiempo, Y = tareas","X = tareas, Y = costo","X = costo, Y = riesgos","X = personas, Y = tiempo"],a:0},
+ {type:"short",tag:"short",q:"¿Cómo se estima la prioridad de un riesgo? / ¿Qué variables influyen?",keys:["probabilidad","impacto","ponderacion","ponderación"],model:"Combinando la probabilidad de ocurrencia y el impacto (ponderación) del riesgo."},
+ {type:"short",tag:"short",q:"En gestión de proyectos, ¿cómo se define 'riesgo'?",keys:["evento","condicion","condición","incierto","incierta","efecto","objetivo","impacto"],model:"Evento o condición incierta que, si ocurre, tiene un efecto (positivo o negativo) sobre los objetivos del proyecto."},
+ {type:"mcq",tag:"mcq",q:"¿Cuál NO es una estrategia de respuesta ante una amenaza (riesgo negativo)?",o:["Explotar","Evitar","Mitigar","Transferir"],a:0},
+ {type:"short",tag:"short",q:"¿Qué dos grandes interrogantes busca develar la Propuesta?",keys:["que","qué","como","cómo","costo","plazo","cuanto","cuánto","hacer","alcance"],model:"Qué se va a hacer (alcance/solución) y a qué costo y plazo se realizará."},
+ {type:"mcq",tag:"mcq",q:"¿Qué dos documentos emergen como productos de la fase de Análisis?",o:["Propuesta de Ejecución y Especificaciones Funcionales","EDT y Gantt","Propuesta y Requerimientos","Acta y Contrato"],a:0},
+ {type:"short",tag:"short",q:"Mencione los 3 grupos de documentación de la fase de Elaboración.",keys:["usuario","mantenimiento","entrenamiento","capacitacion","capacitación"],model:"Guía del usuario, guía de mantenimiento y guía de entrenamiento."},
+ {type:"vf",tag:"vf",q:"El Test de Aceptación se diseña en la fase de Testeo y Aceptación.",a:false,e:"Falso: se diseña en la fase de DISEÑO y se aplica en Aceptación."},
+ {type:"mcq",tag:"mcq",q:"¿Qué se debe obtener al final de la fase de Aceptación?",o:["Documento de conformidad firmado por el cliente","La EDT","El estudio de factibilidad","La propuesta inicial"],a:0},
+ {type:"short",tag:"short",q:"Mencione dos misiones del Director del Proyecto.",keys:["alcance","plazo","costo","recurso","expectativa","riesgo","proteger","conflicto","equipo"],model:"Responder por alcance/plazo/costo, manejar expectativas y riesgos, proveer recursos, proteger al equipo y resolver conflictos humanos."},
+ {type:"vf",tag:"vf",q:"El Director Técnico es responsable directo de la calidad del producto/servicio.",a:true,e:"Verdadero: el DT responde por la calidad del producto; el Director por alcance/plazo/costo."},
+ {type:"mcq",tag:"mcq",q:"Según B. Boehm, ¿cuál es el factor que más influye en la productividad?",o:["Las personas / la gente","El lenguaje de programación","El presupuesto","La metodología"],a:0},
+ {type:"mcq",tag:"mcq",q:"Para un equipo de 5 programadores recién egresados, ¿qué organización conviene?",o:["Jerárquica, con dirección técnica fuerte","Democrática sin líder","Matricial con doble mando","Ninguna organización"],a:0},
+ {type:"mcq",tag:"mcq",q:"Para un grupo pequeño de expertos multidisciplinarios en I+D, ¿qué organización conviene?",o:["Democrática / por consenso","Estrictamente jerárquica","Por áreas rutinarias","Sin comunicación"],a:0},
+ {type:"multi",tag:"multi",q:"¿Cuáles afirmaciones sobre los roles son correctas?",o:["El Director provee recursos y protege al equipo","El Director es responsable directo del alcance, plazo y costo","El Director Técnico maneja las expectativas y el manejo comercial","El Director Técnico responde por la calidad del producto"],a:[0,1,3]},
+ {type:"short",tag:"short",q:"¿Quiénes participan y cuál es el cometido de la Reunión de Coordinación?",keys:["director","tecnico","técnico","dt","coordin","plazo","costo"],model:"Participan el Director y el Director Técnico; su cometido es coordinar acciones (se recomiendan gráficos de evolución de plazos y costos)."},
+ {type:"short",tag:"short",q:"¿Quiénes participan y cuál es el cometido de la Reunión de Evaluación de Avance?",keys:["dt","tecnico","técnico","miembro","equipo","avance","director"],model:"Participan el DT y los miembros del equipo (Director con asistencia periódica); su cometido es evaluar el avance real vs planificado (≈30 min)."},
+ {type:"vf",tag:"vf",q:"Todas las reuniones de evaluación periódicas tienen la misma frecuencia.",a:false,e:"Falso: no todas tienen la misma frecuencia."},
+ {type:"short",tag:"short",q:"¿Qué se entiende por 'Línea Base' y cuál es su importancia?",keys:["planific","congel","referencia","aprob","comparar","base","seguimiento","control"],model:"Planificación congelada/aprobada (alcance, cronograma, costo) que sirve de referencia para comparar el desempeño real en el seguimiento y control."},
+ {type:"short",tag:"short",q:"¿En qué tres variables se basa el método de Valor Ganado?",keys:["pv","ev","ac","planeado","planificado","ganado","real","costo"],model:"Valor Planeado (PV), Valor Ganado (EV) y Costo Real (AC)."},
+ {type:"short",tag:"short",q:"Explique con sus palabras el índice de desempeño del costo CPI (EV/AC).",keys:["costo","eficiencia","gastado","trabajo","1","sobrecosto","dinero","ganado"],model:"Mide la eficiencia del costo: cuántas unidades de trabajo (EV) se obtuvieron por cada unidad gastada (AC). CPI>1 favorable, CPI<1 sobrecosto."},
+ {type:"mcq",tag:"mcq",q:"Un CPI = 0,85 se interpreta como que el proyecto...",o:["Tiene sobrecosto","Va adelantado","Está bajo presupuesto","Terminó antes"],a:0},
+ {type:"mcq",tag:"mcq",q:"Dos modelos de compra para empresas privadas vistos en el curso son...",o:["Compra tradicional e Integración","Licitación y remate","Contado y crédito","Interna y externa"],a:0},
+ {type:"vf",tag:"vf",q:"Un organismo del Estado siempre está obligado a realizar una licitación.",a:false,e:"Falso: para montos pequeños o excepciones legales puede usar compra directa."},
+ {type:"short",tag:"short",q:"Mencione al menos 2 procesos competitivos por los que el Estado adquiere.",keys:["licitacion","licitación","publica","pública","abreviada","directa","pregon","subasta","concurso"],model:"Licitación pública, licitación abreviada, compra directa, subasta/pregón, concurso de precios (mencionar al menos 2)."},
+ {type:"short",tag:"short",q:"Auditoría: usted audita un proyecto con supuestos problemas temporales y económicos. ¿En qué se fija y cuáles son sus primeras medidas?",keys:["planific","linea base","línea base","avance","valor ganado","cpi","spi","compar","recurso","cliente","equipo","causa"],model:"Se fija en el avance real vs planificado (línea base) usando Valor Ganado (SPI para tiempo, CPI para costo). Primeras medidas: conservar la calma, revisar plan/línea base, reunirse con equipo y DT (historia), identificar causas de los desvíos y definir plan correctivo (redistribuir recursos, rescatar partes vitales, ser franco con el cliente). No conviene que el auditor asuma la Dirección Técnica (pierde imparcialidad)."},
+ {type:"vf",tag:"vf",q:"Conviene que el auditor de un proyecto asuma también la Dirección Técnica.",a:false,e:"Falso: el auditor debe ser formal e imparcial; asumir la DT le haría perder objetividad."},
+ {type:"mcq",tag:"mcq",q:"¿Cuándo deben documentarse como mínimo las lecciones aprendidas?",o:["En el cierre del proyecto","Solo al inicio","Nunca","Únicamente si el proyecto falla"],a:0}
+];
+
+/* ============================================================
+   ESTADO / PERSISTENCIA
+   ============================================================ */
+const KEY="gpquest2026";
+let ST={done:[],xp:0,best:null};
+try{const s=JSON.parse(localStorage.getItem(KEY));if(s)ST=Object.assign(ST,s);}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(ST));}catch(e){}}
+function addXP(n){ST.xp+=n;save();paintXP();}
+function paintXP(){
+  document.getElementById("xpVal").textContent=ST.xp;
+  const lvl=Math.floor(ST.xp/100)+1;
+  document.getElementById("lvlVal").textContent="Nivel "+lvl;
+}
+
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
+function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();}
+function shortOK(text,keys){const t=norm(text);if(t.length<3)return false;let m=0;const seen=new Set();
+  keys.forEach(k=>{const nk=norm(k);if(nk&&t.includes(nk)&&!seen.has(nk)){seen.add(nk);m++;}});
+  const need=keys.length>=4?2:1;return m>=need;}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2600);}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+/* ============================================================
+   NAVEGACIÓN
+   ============================================================ */
+function go(s){
+  document.querySelectorAll("section").forEach(x=>x.classList.remove("on"));
+  document.getElementById(s).classList.add("on");
+  document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.s===s));
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(s==="home")paintHome();
+  if(s==="study")renderStudyList();
+  if(s==="exam")renderExamIntro();
+  if(s==="evm")renderEVM();
+}
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>go(b.dataset.s));
+
+/* ============================================================
+   HOME
+   ============================================================ */
+function paintHome(){
+  const pct=Math.round(ST.done.length/MODULES.length*100);
+  document.getElementById("progPct").textContent=pct+"%";
+  document.getElementById("progBar").style.width=pct+"%";
+  document.getElementById("stDone").textContent=ST.done.length+"/"+MODULES.length;
+  document.getElementById("stExam").textContent=ST.best!=null?ST.best+"%":"—";
+  document.getElementById("stXp").textContent=ST.xp;
+}
+function resetAll(){
+  if(!confirm("¿Seguro que querés borrar todo tu progreso (fichas, XP y simulacros)?"))return;
+  ST={done:[],xp:0,best:null};save();paintXP();paintHome();
+  toast("Progreso reiniciado");
+}
+
+/* ============================================================
+   FICHAS DE ESTUDIO
+   ============================================================ */
+function renderStudyList(){
+  document.getElementById("studyReader").style.display="none";
+  const wrap=document.getElementById("studyList");wrap.style.display="block";
+  const units=[...new Set(MODULES.map(m=>m.unit))];
+  let h=`<div class="hero" style="padding:22px 24px"><span class="pill">FICHAS DE ESTUDIO</span>
+    <h1 style="font-size:1.4rem">Elegí un tema para repasar 📚</h1>
+    <p>Cada ficha resume un módulo del curso y termina con un mini-cuestionario. Completá los 24 para llegar al 100%.</p></div>`;
+  units.forEach(u=>{
+    h+=`<div class="unit-title"><span class="dot"></span> Unidad ${u}</div><div class="grid">`;
+    MODULES.filter(m=>m.unit===u).forEach(m=>{
+      const done=ST.done.includes(m.id);
+      h+=`<div class="mcard" onclick="openFicha('${m.id}')">
+        <span class="badge ${done?'done':'todo'}">${done?'✓ Hecho':'Pendiente'}</span>
+        <div class="ic">${m.ic}</div><h3>${m.title}</h3><p>${m.sub}</p></div>`;
+    });
+    h+=`</div>`;
+  });
+  wrap.innerHTML=h;
+}
+function openFicha(id){
+  const m=MODULES.find(x=>x.id===id);if(!m)return;
+  document.getElementById("studyList").style.display="none";
+  const r=document.getElementById("studyReader");r.style.display="block";
+  const idx=MODULES.findIndex(x=>x.id===id);
+  const prev=MODULES[idx-1],next=MODULES[idx+1];
+  let h=`<div class="reader">
+    <div class="reader-head"><button class="btn ghost" style="margin-bottom:10px" onclick="renderStudyList()">← Volver a las fichas</button>
+      <div class="ic">${m.ic}</div><h2>${m.title}</h2><div class="sub">${m.unit} · ${m.sub}</div></div>
+    <div class="reader-body">${m.body}
+      <div class="quiz" id="quizBox">
+        <h4>🧠 Mini-cuestionario</h4>
+        <p style="color:var(--mut);font-size:.88rem">Respondé para confirmar que entendiste el tema.</p>
+        <div id="quizQs"></div>
+        <div class="row mt"><button class="btn" onclick="checkFichaQuiz('${m.id}')">Verificar respuestas</button></div>
+        <div class="result" id="quizResult"></div>
+      </div>
+      <div class="row mt2" style="justify-content:space-between">
+        <div>${prev?`<button class="btn ghost" onclick="openFicha('${prev.id}')">← ${prev.title}</button>`:''}</div>
+        <div>${next?`<button class="btn ghost" onclick="openFicha('${next.id}')">${next.title} →</button>`:''}</div>
+      </div>
+    </div></div>`;
+  r.innerHTML=h;
+  renderQuiz(m.quiz,"quizQs","f");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* Render de preguntas (compartido fichas + examen)
+   prefix: identificador para inputs */
+function renderQuiz(qs,containerId,prefix){
+  let h="";
+  qs.forEach((q,i)=>{
+    const id=prefix+"_"+i;
+    let tag = q.vf!==undefined||q.type==="vf" ? '<span class="tag vf">V/F</span>' :
+              q.short||q.type==="short" ? '<span class="tag short">Respuesta corta</span>' :
+              q.multi||q.type==="multi" ? '<span class="tag mcq">Selección múltiple</span>' :
+              '<span class="tag mcq">Opción</span>';
+    h+=`<div class="q" id="${id}"><div class="qt"><span class="num">${i+1}.</span>${esc(q.q||q.t)} ${tag}</div>`;
+    if(q.vf!==undefined || q.type==="vf"){
+      h+=`<label class="opt"><input type="radio" name="${id}" value="V"> Verdadero</label>
+          <label class="opt"><input type="radio" name="${id}" value="F"> Falso</label>`;
+    }else if(q.short || q.type==="short"){
+      h+=`<textarea id="${id}_txt" placeholder="Escribí tu respuesta..."></textarea>`;
+    }else if(q.multi || q.type==="multi"){
+      q.o.forEach((op,j)=>h+=`<label class="opt"><input type="checkbox" name="${id}" value="${j}"> ${esc(op)}</label>`);
+    }else{
+      q.o.forEach((op,j)=>h+=`<label class="opt"><input type="radio" name="${id}" value="${j}"> ${esc(op)}</label>`);
+    }
+    h+=`<div class="expl" id="${id}_ex"></div></div>`;
+  });
+  document.getElementById(containerId).innerHTML=h;
+  // selección visual
+  document.querySelectorAll("#"+containerId+" .opt input").forEach(inp=>{
+    inp.onchange=()=>{
+      if(inp.type==="radio"){inp.closest(".q").querySelectorAll(".opt").forEach(o=>o.classList.remove("sel"));}
+      inp.closest(".opt").classList.toggle("sel",inp.checked);
+    };
+  });
+}
+
+/* Corrige una pregunta y devuelve true/false; muestra explicación */
+function gradeQ(q,id){
+  const exEl=document.getElementById(id+"_ex");
+  let ok=false, correctTxt="";
+  if(q.vf!==undefined || q.type==="vf"){
+    const sel=document.querySelector(`input[name="${id}"]:checked`);
+    const val=sel?sel.value:null;
+    ok = (val==="V")===(q.a===true||q.vf===true);
+    correctTxt=(q.a===true||q.vf===true)?"Verdadero":"Falso";
+    markOpts(id,q,ok,(q.a===true||q.vf===true)?"V":"F",val);
+  }else if(q.short || q.type==="short"){
+    const txt=document.getElementById(id+"_txt").value;
+    ok=shortOK(txt,q.keys);
+  }else if(q.multi || q.type==="multi"){
+    const sel=[...document.querySelectorAll(`input[name="${id}"]:checked`)].map(x=>+x.value).sort();
+    const ans=q.a.slice().sort();
+    ok = sel.length===ans.length && sel.every((v,k)=>v===ans[k]);
+    markMulti(id,q,ans,sel);
+  }else{
+    const sel=document.querySelector(`input[name="${id}"]:checked`);
+    const val=sel?+sel.value:-1;
+    ok=val===q.a;
+    markOpts(id,q,ok,q.a,val);
+  }
+  exEl.className="expl show "+(ok?"ok":"no");
+  let msg = ok?"<b>✔ ¡Correcto!</b> ":"<b>✘ Repasá esto.</b> ";
+  if(q.short||q.type==="short"){ msg += (ok?"":"") + "<br><b>Respuesta modelo:</b> "+esc(q.model); if(q.e)msg+="<br>"+esc(q.e);}
+  else { msg += q.e?esc(q.e):("La respuesta correcta es: "+(typeof correctTxt==="string"&&correctTxt?correctTxt:"—")); }
+  exEl.innerHTML=msg;
+  return ok;
+}
+function markOpts(id,q,ok,correctVal,chosen){
+  const opts=document.querySelectorAll(`#${id} .opt`);
+  opts.forEach(o=>{
+    const inp=o.querySelector("input");
+    if(inp.value==String(correctVal))o.classList.add("correct");
+    if(inp.value==String(chosen)&&!ok)o.classList.add("wrong");
+  });
+}
+function markMulti(id,q,ans,sel){
+  const opts=document.querySelectorAll(`#${id} .opt`);
+  opts.forEach(o=>{
+    const v=+o.querySelector("input").value;
+    if(ans.includes(v))o.classList.add("correct");
+    else if(sel.includes(v))o.classList.add("wrong");
+  });
+}
+
+function checkFichaQuiz(mid){
+  const m=MODULES.find(x=>x.id===mid);
+  let ok=0;
+  m.quiz.forEach((q,i)=>{ if(gradeQ(q,"f_"+i))ok++; });
+  const total=m.quiz.length, pct=Math.round(ok/total*100);
+  const res=document.getElementById("quizResult");
+  const passed=ok>=Math.ceil(total*0.6);
+  res.className="result show";
+  res.style.background=passed?"rgba(74,222,128,.12)":"rgba(248,113,113,.12)";
+  res.style.border="1px solid "+(passed?"rgba(74,222,128,.4)":"rgba(248,113,113,.4)");
+  res.innerHTML=`<div class="big" style="color:${passed?'var(--good)':'var(--bad)'}">${ok}/${total}</div>
+    <div>${passed?'¡Tema dominado! 🎉':'Repasá la ficha y volvé a intentar 💪'}</div>`;
+  if(passed && !ST.done.includes(mid)){
+    ST.done.push(mid);addXP(50);save();
+    toast("✓ Ficha completada · +50 XP");
+    renderStudyBadgeUpdate(mid);
+  }else if(passed){addXP(10);}
+  paintHome();
+}
+function renderStudyBadgeUpdate(){/* refresca lista al volver */}
+
+/* ============================================================
+   VALOR GANADO (práctica)
+   ============================================================ */
+function genEVM(){
+  const bac=[300000,600000,745000,778000,500000,900000,1200000][Math.floor(Math.random()*7)];
+  let pPlan=[50,60,70,75,80,40][Math.floor(Math.random()*6)];
+  let pReal=Math.max(20,pPlan-[10,15,20,5,25][Math.floor(Math.random()*5)]*(Math.random()<.7?1:-1));
+  pReal=Math.min(95,Math.round(pReal/5)*5);
+  const pv=bac*pPlan/100, ev=bac*pReal/100;
+  const acFactor=[0.9,1.1,1.15,1.2,1.05,0.95][Math.floor(Math.random()*6)];
+  const ac=Math.round(ev*acFactor/1000)*1000 || Math.round(ev);
+  return {bac,pPlan,pReal,pv,ev,ac};
+}
+function fmt(n){return "$"+Math.round(n).toLocaleString("es-UY");}
+function renderEVM(){
+  const p=genEVM();window._evm=p;
+  const box=document.getElementById("evmBox");
+  box.innerHTML=`
+  <div class="hero" style="padding:22px 24px"><span class="pill">PRÁCTICA · VALOR GANADO (EVM)</span>
+    <h1 style="font-size:1.4rem">Ejercicio numérico 📈</h1>
+    <p>Calculá los indicadores con los datos del enunciado. Tolerancia del 2%. Cada ejercicio es nuevo.</p></div>
+  <div class="reader" style="margin-top:16px"><div class="reader-body">
+    <div class="evm-data">
+      <b>Enunciado.</b> Un proyecto tiene un presupuesto total (BAC) de <b>${fmt(p.bac)}</b>.
+      A la fecha se planificaba haber completado el <b>${p.pPlan}%</b> del trabajo, pero realmente se completó el <b>${p.pReal}%</b>.
+      El costo real incurrido (AC) es de <b>${fmt(p.ac)}</b>.
+    </div>
+    <p style="color:var(--mut);font-size:.85rem">Recordá: PV = BAC×%plan · EV = BAC×%real · CV = EV−AC · SV = EV−PV · CPI = EV/AC · SPI = EV/PV · EAC = BAC/CPI · ETC = (BAC−EV)/CPI</p>
+    <div class="evm-grid">
+      ${evmCell("PV","Valor Planeado ($)")}
+      ${evmCell("EV","Valor Ganado ($)")}
+      ${evmCell("CV","Variación de Costo ($)")}
+      ${evmCell("SV","Variación de Cronograma ($)")}
+      ${evmCell("CPI","Índice de Costo (2 decimales)")}
+      ${evmCell("SPI","Índice de Cronograma (2 decimales)")}
+      ${evmCell("EAC","Estimado a la Conclusión ($)")}
+      ${evmCell("ETC","Falta gastar / ETC ($)")}
+    </div>
+    <div class="row mt"><button class="btn" onclick="checkEVM()">Corregir</button>
+      <button class="btn teal" onclick="renderEVM()">Otro ejercicio ↻</button>
+      <button class="btn ghost" onclick="toggleSteps()">Ver solución paso a paso</button></div>
+    <div class="steps" id="evmSteps"></div>
+    <div class="result" id="evmResult"></div>
+  </div></div>`;
+}
+function evmCell(k,label){return `<div class="cell"><label>${k} — ${label}</label><input type="number" step="any" id="ev_${k}" placeholder="?"></div>`;}
+function evmCalc(p){
+  const cpi=p.ev/p.ac, spi=p.ev/p.pv, eac=p.bac/cpi;
+  return {PV:p.pv,EV:p.ev,CV:p.ev-p.ac,SV:p.ev-p.pv,CPI:cpi,SPI:spi,EAC:eac,ETC:(p.bac-p.ev)/cpi};
+}
+function checkEVM(){
+  const p=window._evm,sol=evmCalc(p);let ok=0,tot=0;
+  Object.keys(sol).forEach(k=>{
+    tot++;const el=document.getElementById("ev_"+k);const v=parseFloat(el.value);
+    const target=sol[k];const tol=Math.max(Math.abs(target)*0.02,0.01);
+    const good=!isNaN(v)&&Math.abs(v-target)<=tol;
+    el.style.borderColor=good?"var(--good)":"var(--bad)";
+    el.style.background=good?"rgba(74,222,128,.1)":"rgba(248,113,113,.08)";
+    if(good)ok++;
+  });
+  const r=document.getElementById("evmResult");
+  const passed=ok===tot;
+  r.className="result show";
+  r.style.background=passed?"rgba(74,222,128,.12)":"rgba(248,113,113,.1)";
+  r.style.border="1px solid "+(passed?"rgba(74,222,128,.4)":"rgba(248,113,113,.35)");
+  r.innerHTML=`<div class="big" style="color:${passed?'var(--good)':'var(--acc)'}">${ok}/${tot}</div>
+    <div>${passed?'¡Perfecto! Dominás el Valor Ganado 📈 (+40 XP)':'Revisá los que quedaron en rojo y mirá la solución paso a paso.'}</div>`;
+  if(passed){addXP(40);toast("+40 XP · Valor Ganado");}
+  showSteps();
+}
+function toggleSteps(){const s=document.getElementById("evmSteps");s.classList.contains("show")?s.classList.remove("show"):showSteps();}
+function showSteps(){
+  const p=window._evm,sol=evmCalc(p);
+  const cpi=sol.CPI,spi=sol.SPI;
+  const interp=(sol.CV>=0?"bajo presupuesto":"con sobrecosto")+" y "+(sol.SV>=0?"adelantado":"atrasado")+" respecto al cronograma";
+  document.getElementById("evmSteps").innerHTML=`
+   <div class="st"><b>PV</b> = BAC × %plan = ${fmt(p.bac)} × ${p.pPlan}% = <b>${fmt(sol.PV)}</b></div>
+   <div class="st"><b>EV</b> = BAC × %real = ${fmt(p.bac)} × ${p.pReal}% = <b>${fmt(sol.EV)}</b></div>
+   <div class="st"><b>AC</b> = ${fmt(p.ac)} (dato)</div>
+   <div class="st"><b>CV</b> = EV − AC = ${fmt(sol.EV)} − ${fmt(p.ac)} = <b>${fmt(sol.CV)}</b></div>
+   <div class="st"><b>SV</b> = EV − PV = ${fmt(sol.EV)} − ${fmt(sol.PV)} = <b>${fmt(sol.SV)}</b></div>
+   <div class="st"><b>CPI</b> = EV / AC = ${Math.round(sol.EV)} / ${Math.round(p.ac)} = <b>${cpi.toFixed(2)}</b></div>
+   <div class="st"><b>SPI</b> = EV / PV = ${Math.round(sol.EV)} / ${Math.round(sol.PV)} = <b>${spi.toFixed(2)}</b></div>
+   <div class="st"><b>EAC</b> = BAC / CPI = ${fmt(p.bac)} / ${cpi.toFixed(2)} = <b>${fmt(sol.EAC)}</b></div>
+   <div class="st"><b>ETC</b> = (BAC − EV) / CPI = <b>${fmt(sol.ETC)}</b></div>
+   <div class="st" style="border-color:var(--acc)"><b>Interpretación:</b> el proyecto está ${interp}. (CPI ${cpi>=1?'≥':'<'} 1, SPI ${spi>=1?'≥':'<'} 1)</div>`;
+  document.getElementById("evmSteps").classList.add("show");
+}
+
+/* ============================================================
+   SIMULACRO DE PARCIAL
+   ============================================================ */
+let EXAM=null;
+function renderExamIntro(){
+  document.getElementById("examRun").style.display="none";
+  const box=document.getElementById("examIntro");box.style.display="block";
+  box.innerHTML=`
+  <div class="hero"><span class="pill">SIMULACRO DE PARCIAL</span>
+    <h1 style="font-size:1.5rem">Ponete a prueba 📝</h1>
+    <p>Armamos un parcial con preguntas al estilo de los exámenes 2017–2025: opción múltiple, verdadero/falso, respuesta corta y un ejercicio numérico de Valor Ganado. Corrección automática. Mínimo de aprobación: <b>50%</b>.</p>
+    <div class="chips" id="lenChips">
+      <div class="chip active" data-n="10">Corto (10)</div>
+      <div class="chip" data-n="14">Medio (14)</div>
+      <div class="chip" data-n="18">Largo (18)</div>
+    </div>
+    <div class="row mt2"><button class="btn" onclick="startExam()">🚀 Comenzar simulacro</button></div>
+    ${ST.best!=null?`<p style="color:var(--mut);margin-top:14px">Tu mejor resultado hasta ahora: <b style="color:var(--acc)">${ST.best}%</b></p>`:''}
+  </div>`;
+  box.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{box.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));c.classList.add("active");});
+}
+function startExam(){
+  const n=+document.querySelector("#lenChips .chip.active").dataset.n;
+  const pool=shuffle(EXAM_BANK).slice(0,n-1);
+  // ejercicio EVM al final
+  const p=genEVM();window._examEvm=p;
+  EXAM={qs:pool,evm:p};
+  document.getElementById("examIntro").style.display="none";
+  const run=document.getElementById("examRun");run.style.display="block";
+  let h=`<div class="reader"><div class="reader-head"><span class="pill">PARCIAL SIMULADO · ${n} ítems</span>
+      <h2 style="font-size:1.3rem">Respondé todo y luego corregí</h2>
+      <div class="sub">Opción múltiple · V/F · respuesta corta · Valor Ganado</div></div>
+    <div class="reader-body"><div id="examQs"></div>`;
+  // EVM block
+  h+=`<div class="q" id="examEVM"><div class="qt"><span class="num">${n}.</span>Ejercicio de Valor Ganado <span class="tag evm">EVM</span></div>
+    <div class="evm-data">Un proyecto tiene un BAC de <b>${fmt(p.bac)}</b>. Se planificaba completar el <b>${p.pPlan}%</b> y realmente se completó el <b>${p.pReal}%</b>. El costo real (AC) es <b>${fmt(p.ac)}</b>. Calculá:</div>
+    <div class="evm-grid">
+      ${examEvmCell("PV","PV ($)")}${examEvmCell("EV","EV ($)")}
+      ${examEvmCell("CV","CV ($)")}${examEvmCell("SV","SV ($)")}
+      ${examEvmCell("CPI","CPI (2 dec.)")}${examEvmCell("SPI","SPI (2 dec.)")}
+    </div><div class="expl" id="examEVM_ex"></div></div>`;
+  h+=`<div class="row mt2"><button class="btn" onclick="gradeExam()">✅ Corregir simulacro</button>
+      <button class="btn ghost" onclick="renderExamIntro()">Cancelar</button></div>
+      <div class="result" id="examResult"></div></div></div>`;
+  run.innerHTML=h;
+  renderQuiz(pool,"examQs","x");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function examEvmCell(k,l){return `<div class="cell"><label>${l}</label><input type="number" step="any" id="xev_${k}" placeholder="?"></div>`;}
+function gradeExam(){
+  let ok=0,total=EXAM.qs.length+1;
+  EXAM.qs.forEach((q,i)=>{ if(gradeQ(q,"x_"+i))ok++; });
+  // grade EVM (6 sub-values, cuenta como 1 ítem si >=5 correctos)
+  const p=EXAM.evm,sol=evmCalc(p);
+  const keys=["PV","EV","CV","SV","CPI","SPI"];let sub=0;
+  keys.forEach(k=>{
+    const el=document.getElementById("xev_"+k);const v=parseFloat(el.value);
+    const t=sol[k];const tol=Math.max(Math.abs(t)*0.02,0.01);
+    const good=!isNaN(v)&&Math.abs(v-t)<=tol;
+    el.style.borderColor=good?"var(--good)":"var(--bad)";
+    el.style.background=good?"rgba(74,222,128,.1)":"rgba(248,113,113,.08)";
+    if(good)sub++;
+  });
+  const evmOk=sub>=5;if(evmOk)ok++;
+  const ex=document.getElementById("examEVM_ex");
+  ex.className="expl show "+(evmOk?"ok":"no");
+  ex.innerHTML=`<b>${sub}/6 valores correctos.</b> PV=${fmt(sol.PV)} · EV=${fmt(sol.EV)} · CV=${fmt(sol.CV)} · SV=${fmt(sol.SV)} · CPI=${sol.CPI.toFixed(2)} · SPI=${sol.SPI.toFixed(2)}`;
+  const pct=Math.round(ok/total*100);
+  const passed=pct>=50;
+  const r=document.getElementById("examResult");
+  r.className="result show";
+  r.style.background=passed?"rgba(74,222,128,.12)":"rgba(248,113,113,.12)";
+  r.style.border="1px solid "+(passed?"rgba(74,222,128,.4)":"rgba(248,113,113,.4)");
+  r.innerHTML=`<div class="big" style="color:${passed?'var(--good)':'var(--bad)'}">${pct}%</div>
+    <div>Acertaste <b>${ok}</b> de <b>${total}</b> ítems. ${passed?'¡Aprobado! 🎉':'No alcanza (mín. 50%). Repasá las fichas y reintentá 💪'}</div>
+    <div class="row" style="justify-content:center;margin-top:12px"><button class="btn ghost" onclick="startExam()">Otro simulacro ↻</button></div>`;
+  const gained=ok*8;addXP(gained);
+  if(ST.best==null||pct>ST.best){ST.best=pct;save();}
+  save();paintHome();
+  toast("Simulacro corregido · +"+gained+" XP");
+  window.scrollTo({top:document.getElementById("examResult").offsetTop-80,behavior:"smooth"});
+}
+
+/* INIT */
+paintXP();paintHome();
+</script>
+</body>
+</html>
